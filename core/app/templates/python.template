@@ -1,0 +1,13 @@
+{import-typing-list}
+"""
+Nome: {name}
+Descrição:
+{description}
+
+Paramatros: 
+{params-description}
+
+Retorno: {type-return} - {description-return}
+"""
+def {name-question}({params}) -> {type-return}:
+    return None
