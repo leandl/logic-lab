@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from werkzeug.exceptions import (
     BadRequest,
     InternalServerError,
@@ -14,6 +15,7 @@ from app.common.utils import formater_response
 
 def create_app(debug=False):
     app = Flask(__name__)
+    CORS(app)
     app.debug = debug
 
     app.register_error_handler(ServiceUnavailable, service_unavailable)

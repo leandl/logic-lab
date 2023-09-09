@@ -1,6 +1,6 @@
-from typing import Tuple
 from os import path
 
+from ..config import Config
 from .generator_file import GeneratorFile
 
 params_type = {
@@ -16,8 +16,8 @@ params_type = {
 
 class GeneratorPythonFile(GeneratorFile):
 
-  def __init__(self, path_templates: str) -> None:
-    path_template_javascript = path.join(path_templates, "python.template")
+  def __init__(self) -> None:
+    path_template_javascript = path.join(Config.path["TEMPLATES"]["GENERATOR"], "python.template")
     super().__init__(path_template_javascript)
 
   def __convert_type(self, param_type):
