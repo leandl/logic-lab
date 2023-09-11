@@ -1,0 +1,349 @@
+[
+  {
+    "name": "Primeiro reverso",
+    "description": "Faça com que a função FirstReverse(str) pegue o parâmetro str que está \nsendo passado e retorne a string na ordem inversa. \nPor exemplo: se a string de entrada for \"Hello World and Coders\", \nseu programa deve retornar a string \"sredoC dna dlroW olleH\".",
+    "type-result": "STRING",
+    "description-result": "O retorno deverá ser do tipo string e conter o valor passado \nna entrada de forma inversa.",
+    "params": [
+      {
+        "name": "texto",
+        "type": "STRING",
+        "description": "Uma string para ser invertida"
+      }
+    ],
+    "tests": [
+      {
+        "args": ["Hello World and Coders"],
+        "result": "sredoC dna dlroW olleH"
+      },
+      {
+        "args": [
+          "uiohlsadfuiholfasduiohfasdiugyfasdiubyhlaegsdfbjhklgasdefguigklbasdgkuilgybgasd"
+        ],
+        "result": "dsagbygliukgdsablkgiugfedsaglkhjbfdsgealhybuidsafyguidsafhoiudsaflohiufdaslhoiu"
+      },
+      {
+        "args": ["asdoksdoksdoksdoks"],
+        "result": "skodskodskodskodsa"
+      },
+      {
+        "args": ["plplplplpefoeoeoekokokokfplplpl123"],
+        "result": "321lplplpfkokokokeoeoeofeplplplplp"
+      }
+    ]
+  },
+  {
+    "name": "Vogal ou Consoante",
+    "description": "Faça um Programa que verifique se uma letra digitada é vogal ou consoante.\nExemplo: Caso a entrada seja \"a\", a saída deverá ser: \"Vogal\". \nE caso a entrada seja \"b\", a saída deverá ser \"Consoante\"",
+    "type-result": "STRING",
+    "description-result": "O retorno deverá ser do tipo string e apresentar se a letra digitada é uma \nvogal retornando \"Vogal\" ou uma consoante, retornando \"Consoante\".",
+    "params": [
+      {
+        "name": "letra",
+        "type": "STRING",
+        "description": "Uma letra qualquer"
+      }
+    ],
+    "tests": [
+      {
+        "args": ["a"],
+        "result": "Vogal"
+      },
+      {
+        "args": ["e"],
+        "result": "Vogal"
+      },
+      {
+        "args": ["i"],
+        "result": "Vogal"
+      },
+      {
+        "args": ["o"],
+        "result": "Vogal"
+      },
+      {
+        "args": ["u"],
+        "result": "Vogal"
+      },
+      {
+        "args": ["b"],
+        "result": "Consoante"
+      }
+    ]
+  },
+  {
+    "name": "LEDS",
+    "description": "John quer montar um painel contendo diversos números com LEDs.\nEle não tem muitos leds e não sabe se tem a quantidade necessária para montar seu painel.\nConsiderando a imagem abaixo, faça um algoritmo para ajudar John a descobrir quantos leds \nserá necessário para ele montar seu painel.",
+    "type-result": "STRING",
+    "description-result": "O retorno deverá ser o número necessário de leds para representar aquela string \nno painel seguido da palavra \"leds\".",
+    "params": [
+      {
+        "name": "string_led",
+        "type": "STRING",
+        "description": "Um número que John deseja mostrar em seu painel"
+      }
+    ],
+    "tests": [
+      {
+        "args": ["115380"],
+        "result": "27 leds"
+      },
+      {
+        "args": ["2819311"],
+        "result": "29 leds"
+      },
+      {
+        "args": ["23456"],
+        "result": "25 leds"
+      }
+    ]
+  },
+  {
+    "name": "Album da Copa",
+    "description": "Ricardo e Vicente são doidos pelo álbum da copa. Em seu tempo livre,\nambos pensaram num jogo envolvendo suas cartas: Como já tinham o costume\nde trocar cartas repetidas, eles pensaram em como deixar a troca mais\ndivertida.\n\nEntão, eles chamaram todos seus amigos e fizeram um jogo de troca de\ncartas com as seguintes regras: Com as cartas em mão, cada amigo precisa\ntrocar as cartas com o amigo mais próximo, cada um conta quantas cartas\nrepetidas possui.\n\nDepois, eles deveriam dividir estas cartas em conjuntos de mesma\nquantidade para ambos. E então, cada um escolhe quais conjuntos de cartas\nreceber do amigo.\n\nPor exemplo: se Ricardo e Vicente possuem respectivamente 8 e 12 cartas\ncada, os dois devem criar conjuntos de 4 cartas cada (Ricardo possui 2\nconjuntos de 4, enquanto Vicente  possui 3 conjuntos de 4), no final cada\num escolhe um conjunto para receber do outro.",
+    "type-result": "INTEGER",
+    "description-result": "O retorno deverá ser a quantidade de cartas (int) que deve haver dentro de cada \nconjunto de cartas entre aqueles 2 amigos.",
+    "params": [
+      {
+        "name": "cartas1",
+        "type": "INTEGER",
+        "description": "Número de cartas do amigo 1"
+      },
+      {
+        "name": "cartas2",
+        "type": "INTEGER",
+        "description": "Número de cartas do amigo 2"
+      }
+    ],
+    "tests": [
+      {
+        "args": [8, 12],
+        "result": 4
+      },
+      {
+        "args": [9, 27],
+        "result": 9
+      },
+      {
+        "args": [259, 111],
+        "result": 37
+      },
+      {
+        "args": [123, 12],
+        "result": 3
+      },
+      {
+        "args": [123, 55],
+        "result": 1
+      }
+    ]
+  },
+  {
+    "name": "Jogo de Boca",
+    "description": "Um jogo infantil, muito popular, é o 21 de boca. O jogo é jogado da seguinte\nforma: o primeiro jogador diz um nímero, n0 , que pode ser 1 ou 2. O segundo\njogador pode então dizer um número n1 tal que n1 ∈{ n0 + 1 , n0 + 2 }. E assim\npor diante, os jogadores se alternam, dizendo sempre um número que é um ou\ndois maior do que o anterior. O jogador que disser 21 ganha o jogo.\n\nPor exemplo, a sequência de números poderia ser:\n1 , 3 , 5 , 6 , 7 , 9 , 11 ,12 , 14 , 15 , 16 , 18 , 19 , 21.\n\nNeste jogo, o primeiro jogador sempre perde, se o segundo souber jogar bem.\nA cada nova geração as crianças ficam mais espertas. Atualmente, apesar de\nacharem o 21 de boca um jogo interessante, muitas crianças não se sentem\ndesafiadas o bastante e por isso resolveram generalizar o jogo, criando assim\no N de boca. Dado um inteiro N, no lugar do 21, o primeiro jogador pode\nescolher 1 ou 2. A partir daí os jogadores se alternam, adicionando 1 ou 2\nao número anterior, até que um deles diga o número N e ganhe o jogo.\n\nSabendo que ambos os jogadores são excelentes e sabem jogar muito bem, seu\nproblema é determinar qual o inteiro inicial que o primeiro jogador deve\nescolher para ganhar o jogo.",
+    "type-result": "INTEGER",
+    "description-result": "O retorno deverá ser um número, em {1, 2}, que o primeiro jogador deve escolher,\npara ganhar o jogo. Se não for possível, então o inteiro deve ser zero.",
+    "params": [
+      {
+        "name": "num",
+        "type": "INTEGER",
+        "description": "A entrada consiste de uma única linha que contém o inteiro N (3 ≤ N ≤ 10100 ) escolhido para a partida atual do N de boca."
+      }
+    ],
+    "tests": [
+      {
+        "args": [7],
+        "result": 1
+      },
+      {
+        "args": [9],
+        "result": 0
+      },
+      {
+        "args": [21],
+        "result": 0
+      },
+      {
+        "args": [5217],
+        "result": 0
+      },
+      {
+        "args": [5219],
+        "result": 2
+      },
+      {
+        "args": [5],
+        "result": 2
+      }
+    ]
+  },
+  {
+    "name": "Diamantes e Areia",
+    "description": "John está trabalhando numa mina de diamantes. Seu trabalho é extrair a maior\nquantidade de diamantes possível \"<>\". Ele precisa retirar todas as partículas\nde areia \".\" que ele achar, neste processo o diamantes pode ser extraído e\nassim novos diamantes serem formados.\n\nSe ele obter uma entrada: \"<... << .. >> ....> .... >>>\", 3 diamantes serão\nformados. O primeiro vem de \"<..>\", resultando \" <... <> ....> .... >>>\". O\nsegundo diamante então é removido \"<.......> .... >>>\". O terceiro diamante\nentão é removido e deixado no final \" ..... >>>\", sem a possibilidade de\nextrair mais diamantes.",
+    "type-result": "INTEGER",
+    "description-result": "O retorno deverá ser o número de diamantes extraídos.",
+    "params": [
+      {
+        "name": "line_to_extract",
+        "type": "STRING",
+        "description": "A entrada consiste de uma única linha que contém areia e diamantes para serem extraídos"
+      }
+    ],
+    "tests": [
+      {
+        "args": ["<..><.<..>>"],
+        "result": 3
+      },
+      {
+        "args": ["<<<..<......<<<<....>"],
+        "result": 1
+      },
+      {
+        "args": [".>><..<<<>.<.>>..>...<<.>...."],
+        "result": 5
+      },
+      {
+        "args": ["<>"],
+        "result": 1
+      },
+      {
+        "args": [""],
+        "result": 0
+      }
+    ]
+  },
+  {
+    "name": "Bom de Matemática",
+    "description": "Você foi convidado para fazer o trabalho de um professor de matemática.\nO trabalho é de ler uma expressão matemática de 2 números\nracionais (numerador / denominador) e apresentar o resultado desta operação.\n\nCada operante e operador é separado por um espaço em branco. A linha informada\nconterá a seguinte estrutura:\nNúmero | Barra (\"/\") | Número | Barra (\"/\") | Operador (\"+\", \"-\", \"/\", \"*\") | Barra (\"/\") | Número | Barra (\"/\") | Número.",
+    "type-result": "STRING",
+    "description-result": "O retorno deverá ser o resultado da operação e também ao lado a sua\nforma simplificada, caso o resultado não possua uma forma \nsimplificada, deve-se apenas repetir o valor. \nEx: \"10/5 = 2/1\"",
+    "params": [
+      {
+        "name": "expr",
+        "type": "STRING",
+        "description": "O programa deve receber 2 dois números racionais e um operador de acordo com as regras"
+      }
+    ],
+    "tests": [
+      {
+        "args": ["1 / 2 + 3 / 4"],
+        "result": "10/8 = 5/4"
+      },
+      {
+        "args": ["1 / 2 - 3 / 4"],
+        "result": "-2/8 = -1/4"
+      },
+      {
+        "args": ["2 / 3 * 6 / 6"],
+        "result": "12/18 = 2/3"
+      },
+      {
+        "args": ["1 / 2 / 3 / 4"],
+        "result": "4/6 = 2/3"
+      },
+      {
+        "args": ["501 / 341 + 486 / 42"],
+        "result": "186768/14322 = 31128/2387"
+      }
+    ]
+  },
+  {
+    "name": "Compondo Jingles",
+    "description": "Marcos está dando seus primeiros passos para aprender composição de Jingles. Mas ele está tendo muita dificuldade para obter resultados, mas pelo menos ele está conseguindo produzir melodias atraentes.\nNa música, cada nota tem seu tom (sua frequência, resultando o quão alto ou baixo é seu som) e sua duração (quão longa a nota deve ser). Neste problema estamos interessados apenas na duração das notas.\nUm jingle é dividido numa sequência de compassos, e o compasso é formado por uma série de notas.\nA duração da nota é dada pelo seu formato. Neste problema nós vamos utilizar letras em maiúsculo para indicar a duração das notas. A lista a seguir contém o valor de cada nota disponível (PDF).A duração do compasso é a soma das durações de notas do mesmo. No Jingle de Marcos, cada compasso tem a mesma duração. Como Marcos ainda é um iniciante, o seu famoso professor Johann Sebastian III ensinou a ele que a duração de todo compasso deve ser 1.\nPor exemplo, Marcos escreveu uma composição de 5 compassos, na qual os 4 primeiros contém a duração correta e o último contém a duração incorreta. No exemplo abaixo, cada compasso está separado por uma barra, e cada nota está sendo representada por uma letra da tabela acima.\n/HH/QQQQ/XXXTXTEQH/W/HW/\nMarcos gosta de programação tanto quanto música. Ele quer escrever um programa que determina, para cada uma de suas composições, quais compassos têm a duração correta.\n",
+    "type-result": "INTEGER",
+    "description-result": "O programa deverá mostrar o número de compassos correto da composição.",
+    "params": [
+      {
+        "name": "composition",
+        "type": "STRING",
+        "description": "O programa receberá uma string que poderá conter entre 3 a 200 caracteres representando a composição de Marcos. A composição começa e termina com uma barra \"/\". Cada compasso é dividido dentro de uma composição também por uma barra \"/\". Cada nota é representada por uma letra em maiúsculo da tabela apresentada acima. Você deve assumir que cada composição tem pelo menos 1 nota. Todos os caracteres da entrada serão \"/\" ou uma das representações de notas da tabela."
+      }
+    ],
+    "tests": [
+      {
+        "args": ["/HH/QQQQ/XXXTXTEQH/W/HW/"],
+        "result": 4
+      },
+      {
+        "args": ["/W/W/SQHES/"],
+        "result": 3
+      },
+      {
+        "args": ["/WE/TEX/THES/"],
+        "result": 0
+      },
+      {
+        "args": [
+          "/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/"
+        ],
+        "result": 1
+      }
+    ]
+  },
+  {
+    "name": "Xadrez",
+    "description": "Quantas casas brancas e quantas casas pretas contém um tabuleiro de xadrez N x N?",
+    "type-result": "STRING",
+    "description-result": "O programa deverá mostrar o número de casas brancas e o número de casas pretas do tabuleiro.",
+    "params": [
+      {
+        "name": "n",
+        "type": "INTEGER",
+        "description": "O programa receberá N (2 ≤ V ≤ 100)"
+      }
+    ],
+    "tests": [
+      {
+        "args": [3],
+        "result": "5 casas brancas e 4 casas pretas"
+      },
+      {
+        "args": [4],
+        "result": "8 casas brancas e 8 casas pretas"
+      },
+      {
+        "args": [5],
+        "result": "13 casas brancas e 12 casas pretas"
+      },
+      {
+        "args": [6],
+        "result": "18 casas brancas e 18 casas pretas"
+      }
+    ]
+  },
+  {
+    "name": "Contador de Dígitos",
+    "description": "Diana está trabalhando para escrever uma lista com todos números inteiros entre A e B. Ela deseja saber a contagem de cada dígito entre 1 e 9 que irá ser utilizado nesta contagem.",
+    "type-result": "STRING",
+    "description-result": "O programa deverá apresentar a contagem de cada dígito entre 1 e 9 da contagem dada entre A e B em uma única linha.",
+    "params": [
+      {
+        "name": "de_ate",
+        "type": "STRING",
+        "description": "O programa deve receber 2 dois números inteiros em forma de string."
+      }
+    ],
+    "tests": [
+      {
+        "args": ["1 9"],
+        "result": "0 1 1 1 1 1 1 1 1 1"
+      },
+      {
+        "args": ["12 321"],
+        "result": "61 169 163 83 61 61 61 61 61 61"
+      },
+      {
+        "args": ["12345678 12345679"],
+        "result": "0 2 2 2 2 2 2 2 1 1"
+      },
+      {
+        "args": ["1 99992"],
+        "result": "38889 50000 50000 49999 49999 49999 49999 49999 49999 49971"
+      },
+      {
+        "args": ["727 10727"],
+        "result": "3728 4728 4001 4000 4000 4000 4000 4002 4000 4000"
+      }
+    ]
+  }
+]
