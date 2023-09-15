@@ -17,7 +17,7 @@ function Home() {
       }
 
       const question = questions[questionSelected];
-      const rawResponse = await fetch('http://localhost:5000/generate-file', {
+      const rawResponse = await fetch('http://localhost:5000/generate-file/python', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -47,7 +47,7 @@ function Home() {
     const question = questions[questionSelected];
     console.log(contentFile)
     console.log(question);
-    const rawResponse = await fetch('http://localhost:5000/', {
+    const rawResponse = await fetch('http://localhost:5000/validate-exercise/python', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

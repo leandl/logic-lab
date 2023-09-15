@@ -8,7 +8,7 @@ from werkzeug.exceptions import (
     Unauthorized,
     NotImplemented,
     PreconditionFailed,
-    Forbidden
+    Forbidden,
 )
 
 from app.common.utils import formater_response
@@ -25,7 +25,7 @@ def create_app(debug=False):
     app.register_error_handler(PreconditionFailed, precondition_failed)
     app.register_error_handler(Unauthorized, unauthorized)
     app.register_error_handler(InternalServerError, internal_server_error)
-    app.register_error_handler(NotImplemented, internal_server_error)
+    app.register_error_handler(NotImplemented, not_implemented)
 
     from app.controller.file import file_bp
     app.register_blueprint(file_bp)
@@ -56,6 +56,12 @@ def not_found(e):
     return formater_response(
         code=404,
         message= f'{e}'
+    )
+
+def not_implemented(e):
+    return formater_response(
+        code=501,
+        message=f'{e}'
     )
 
 
