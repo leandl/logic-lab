@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(250)
+  email    String @unique @db.VarChar(250)
+  password String
+
+  rooms         Room[]
+  supervisor    Supervisor?
+  roomQuestions UserRoomQuestion[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("update_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("users")
+}
+
+model Supervisor {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @unique @map("user_id")
+  rooms  Room[]
+
+  @@map("supervisor")
+}
+
+model QuestionCategory {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(50)
+
+  @@map("question_category")
+}
+
+model Question {
+  id                Int                @id @default(autoincrement())
+  name              String             @db.VarChar(50)
+  description       String             @db.VarChar(250)
+  typeResult        String             @map("type_result") @db.VarChar(50)
+  descriptionResult String             @map("description_result") @db.VarChar(250)
+  params            Json
+  tests             Json
+  documentMarkdown  String?            @map("document_markdown") @db.MediumText
+  userRoomQuestions UserRoomQuestion[]
+  rooms             Room[]
+
+  @@map("question")
+}
+
+model Room {
+  id                Int                @id @default(autoincrement())
+  name              String             @db.VarChar(50)
+  users             User[]
+  supervisors       Supervisor[]
+  userRoomQuestions UserRoomQuestion[]
+  questions         Question[]
+
+  @@map("room")
+}
+
+model Language {
+  id                Int                @id @default(autoincrement())
+  name              String             @db.VarChar(50)
+  userRoomQuestions UserRoomQuestion[]
+
+  @@map("language")
+}
+
+model UserRoomQuestion {
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
+  room       Room     @relation(fields: [roomId], references: [id])
+  roomId     Int
+  language   Language @relation(fields: [languageId], references: [id])
+  languageId Int
+  code       String   @db.MediumText
+
+  @@id([userId, questionId, roomId, languageId])
+  @@map("user_room_question")
+}
