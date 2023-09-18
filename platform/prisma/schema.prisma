@@ -99,6 +99,7 @@ model UserRoomQuestion {
   language   Language @relation(fields: [languageId], references: [id])
   languageId Int
   code       String   @db.MediumText
+  passed     Boolean  @default(false)
 
   @@id([userId, questionId, roomId, languageId])
   @@map("user_room_question")
