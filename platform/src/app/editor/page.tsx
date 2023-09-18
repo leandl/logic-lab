@@ -1,9 +1,10 @@
+"use client";
+
 import React, { useCallback, useEffect, useState } from "react";
+import Editor from "@monaco-editor/react";
 
-import dynamic from "next/dynamic";
-const MonacoEditor = dynamic(import("react-monaco-editor"), { ssr: false });
-
-import questions from "../data/test-data-questions.json"
+import "./editor.module.css"
+import questions from "../../data/test-data-questions.json"
 
 function Home() {
   const [questionSelected, setQuestionSelected] = useState<number>();
@@ -45,8 +46,6 @@ function Home() {
     }
 
     const question = questions[questionSelected];
-    console.log(contentFile)
-    console.log(question);
     const rawResponse = await fetch('http://localhost:5000/validate-exercise/python', {
       method: 'POST',
       headers: {
@@ -85,26 +84,23 @@ function Home() {
           <pre>{JSON.stringify(result, null, 4)}</pre>
         </div>
       )}
+      <div className="editor">
 
-      <MonacoEditor
-        editorDidMount={() => {
-
-        }}
-        width="800"
-        height="600"
-        language="python"
-
-        options={{
-          minimap: {
-            enabled: false
-          }
-        }}
-        value={contentFile}
-        onChange={(newValue, event) => {
-          console.log(newValue);
-          setContentFile(newValue)
-        }}
-      />
+        <Editor
+          height="100vh"
+          language="python"
+          options={{
+            minimap: {
+              enabled: false
+            }
+          }}
+          value={contentFile}
+          onChange={(newValue, event) => {
+            console.log(newValue);
+            setContentFile(newValue ?? "")
+          }}
+        />
+      </div>
     </>
   );
 }

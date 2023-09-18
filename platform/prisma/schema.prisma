@@ -13,13 +13,13 @@ model User {
   email    String @unique @db.VarChar(250)
   password String
 
-  rooms         Room[]
   supervisor    Supervisor?
   roomQuestions UserRoomQuestion[]
 
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("update_at")
-  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("update_at")
+  deletedAt DateTime?  @map("deleted_at")
+  userRooms UserRoom[]
 
   @@map("users")
 }
@@ -34,8 +34,9 @@ model Supervisor {
 }
 
 model QuestionCategory {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(50)
+  id       Int       @id @default(autoincrement())
+  name     String    @db.VarChar(50)
+  Question Question?
 
   @@map("question_category")
 }
@@ -51,17 +52,31 @@ model Question {
   documentMarkdown  String?            @map("document_markdown") @db.MediumText
   userRoomQuestions UserRoomQuestion[]
   rooms             Room[]
+  category          QuestionCategory   @relation(fields: [categoryId], references: [id])
+  categoryId        Int                @unique @map("category_id")
 
   @@map("question")
+}
+
+model UserRoom {
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int
+  room   Room    @relation(fields: [roomId], references: [id])
+  roomId Int
+  active Boolean @default(true)
+
+  @@id([userId, roomId])
+  @@map("user_room")
 }
 
 model Room {
   id                Int                @id @default(autoincrement())
   name              String             @db.VarChar(50)
-  users             User[]
   supervisors       Supervisor[]
   userRoomQuestions UserRoomQuestion[]
   questions         Question[]
+  userRooms         UserRoom[]
+  active            Boolean            @default(true)
 
   @@map("room")
 }
