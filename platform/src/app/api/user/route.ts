@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import { z } from "zod";
-import { PrismaUserRepository } from "../../../repositories/prisma/prisma-user-repository";
-import { router } from "../../../utils/router";
+
+import { PrismaUserRepository } from "@/repositories/prisma/prisma-user-repository";
 
 const validatorCreateUser = z.object({
   name: z
@@ -15,14 +15,18 @@ const validatorCreateUser = z.object({
     .min(8, "Senha: deve ter um tamanho minimo de 8 caracterios."),
 });
 
-async function createUser(request: NextApiRequest, response: NextApiResponse) {
+export async function POST(request: Request, response: Response) {
+  const req = await request.json();
   const userRepository = new PrismaUserRepository();
-  const result = validatorCreateUser.safeParse(request.body);
+  const result = validatorCreateUser.safeParse(req.body);
 
   if (!result.success) {
-    return response.status(404).json({
-      fieldsInvalid: result.error.errors.map((error) => error.message),
-    });
+    return NextResponse.json(
+      {
+        fieldsInvalid: result.error.errors.map((error) => error.message),
+      },
+      { status: 404 }
+    );
   }
 
   const newUser = result.data;
@@ -30,16 +34,14 @@ async function createUser(request: NextApiRequest, response: NextApiResponse) {
   const isEmailUsing = Boolean(userExists);
 
   if (isEmailUsing) {
-    return response.status(409).json({
-      message: "Este e-mail já esta sendo utlizado.",
-    });
+    return NextResponse.json(
+      {
+        message: "Este e-mail já esta sendo utlizado.",
+      },
+      { status: 409 }
+    );
   }
 
   const user = await userRepository.create(newUser);
-
-  return response.status(201).json(user);
+  return NextResponse.json(user, { status: 201 });
 }
-
-export default router({
-  POST: createUser,
-});

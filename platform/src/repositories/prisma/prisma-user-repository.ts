@@ -1,5 +1,7 @@
-import { prisma } from "../../lib/prisma";
-import { User, UserRepository } from "../user-repository";
+import { hash } from "bcryptjs";
+
+import { prisma } from "@/lib/prisma";
+import { User, UserRepository } from "@/repositories/user-repository";
 
 export class PrismaUserRepository implements UserRepository {
   async getAll(): Promise<User[]> {
@@ -41,10 +43,15 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async create(user: User): Promise<User> {
+    const password = await hash(user.password, "lsklkfdlsç");
     await prisma.user.create({
-      data: user,
+      data: {
+        ...user,
+        password,
+      },
     });
-    return user;
+
+    return { ...user, password };
   }
 
   async changePassword(userId: number, newPassword: string): Promise<void> {
