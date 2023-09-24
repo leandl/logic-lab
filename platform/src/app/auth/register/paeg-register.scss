@@ -1,0 +1,30 @@
+$marginBetweenInpuButton: 25px;
+
+.page-register {
+  margin-bottom: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    display: block;
+    margin-bottom: 10px;
+    font-size: x-large;
+    text-align: center;
+
+    color: $lightTextPrimary;
+
+    @include dark {
+      color: $darkTextPrimary;
+    }
+  }
+
+  .nameInput {
+    margin-bottom: $marginBetweenInpuButton;
+  }
+
+  .buttonSignin {
+    margin-top: $marginBetweenInpuButton;
+  }
+}

@@ -96,7 +96,6 @@ function Home() {
           }}
           value={contentFile}
           onChange={(newValue, event) => {
-            console.log(newValue);
             setContentFile(newValue ?? "")
           }}
         />

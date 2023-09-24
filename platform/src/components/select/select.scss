@@ -1,0 +1,37 @@
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 5px;
+    color: $lightTextPrimary;
+    font-size: 1rem;
+
+    @include dark {
+      color: $darkTextPrimary;
+    }
+  }
+
+  select {
+    background-color: $lightBackground;
+    color: $lightTextPrimary;
+    height: 40px;
+    border-radius: .3rem;
+    outline: none;
+    border: none;
+    padding: 10px;
+    font-size: .9rem;
+
+    border: 1px solid $divisorColor;
+
+    @include dark {
+      background-color: $darkBackground;
+      color: $darkTextPrimary;
+    }
+  }
+
+  .error{
+    color: red;
+    font-size: .2rem;
+  }
+}

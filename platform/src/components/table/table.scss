@@ -1,0 +1,80 @@
+.table {
+  width: 60%;
+
+  .cell {
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    
+    border-radius: .4rem;
+    margin-bottom: 10px;
+    padding: 10px;
+    
+    background-color: $lightSecondBackground;
+    
+    @include dark{
+      background-color: $darkSecondBackground;
+    }
+
+    .info{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: auto;
+    }
+
+    .actions{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto;
+      
+      svg{
+        margin-left: 10px;
+      }
+    }
+
+    span {
+      color: $primaryColor;
+      font-size: 2rem;
+      
+      @include dark{
+        color: $secondaryColor;
+      }
+    }
+    
+    .extraInfo{
+      display: flex;
+      margin-top: 10px;
+
+      span{
+        svg{
+          height: 10px;
+        }
+
+        color: $lightTextPrimary;
+        font-size: 1rem;
+      
+        &:not(:first-child){
+          margin-left: 20px;
+        }
+
+        @include dark{
+          color: $darkTextPrimary;
+        }
+      }
+    }
+
+
+    // &:not(:first-child){
+    border-top: .0150rem solid $divisorColor ;
+
+    @include dark {
+      border-top: .0150rem solid $divisorColor ;
+    }
+
+    // }
+
+
+  }
+}

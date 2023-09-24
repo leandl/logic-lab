@@ -1,0 +1,24 @@
+.modal {
+  background-color: $lightSecondBackground;
+  border-radius: 0.5rem;
+  padding: 1.5rem 2rem 1.5rem 2rem;
+
+  @include dark {
+    background-color: $darkSecondBackground;
+  }
+
+  &.sm {
+    width: 400px;
+  }
+
+  &.md {
+    width: 600px;
+  }
+
+  &.lg {
+    width: 700px;
+  }
+
+  .body {
+  }
+}

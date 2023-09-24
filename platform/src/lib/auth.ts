@@ -4,11 +4,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { encode, decode } from "next-auth/jwt";
 
 import { prisma } from "@/lib/prisma";
+import { ROUTE } from "@/config/route";
 
 export const authOptions: NextAuthOptions = {
-  // pages: {
-  //   signIn: "/login",
-  // },
+  pages: {
+    signIn: ROUTE.APP.AUTH.LOGIN,
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -55,6 +56,7 @@ export const authOptions: NextAuthOptions = {
               email: user.email,
               name: user.name,
               type: userType,
+              theme: "light",
             };
       },
     }),
@@ -66,6 +68,7 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.name = user.name;
         token.type = user.type;
+        token.theme = user.theme;
       }
       return token;
     },
@@ -75,6 +78,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.type = token.type;
         session.user.id = token.id;
+        session.user.theme = token.theme;
       }
       return session;
     },
@@ -83,5 +87,4 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   jwt: { encode, decode },
-  secret: process.env.NEXTAUTH_SECRET,
 };

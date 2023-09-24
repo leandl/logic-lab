@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
 
 import { prisma } from "@/lib/prisma";
-import { User, UserRepository } from "@/repositories/user-repository";
+import { User, UserRepository } from "@/repositories/user.repository";
 
 export class PrismaUserRepository implements UserRepository {
   async getAll(): Promise<User[]> {
@@ -43,7 +43,7 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async create(user: User): Promise<User> {
-    const password = await hash(user.password, "lsklkfdlsç");
+    const password = await hash(user.password, 8);
     await prisma.user.create({
       data: {
         ...user,

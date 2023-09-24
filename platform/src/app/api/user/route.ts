@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { PrismaUserRepository } from "@/repositories/prisma/prisma-user-repository";
+import { PrismaUserRepository } from "@/repositories/prisma/prisma-user.repository";
+import {
+  CreateUserUseCase,
+  CreateUserUseCaseError,
+} from "@/application/user/create-user.use-case";
 
 const validatorCreateUser = z.object({
   name: z
@@ -17,23 +21,28 @@ const validatorCreateUser = z.object({
 
 export async function POST(request: Request, response: Response) {
   const req = await request.json();
-  const userRepository = new PrismaUserRepository();
   const result = validatorCreateUser.safeParse(req.body);
-
   if (!result.success) {
     return NextResponse.json(
       {
         fieldsInvalid: result.error.errors.map((error) => error.message),
       },
-      { status: 404 }
+      { status: 400 }
     );
   }
 
   const newUser = result.data;
-  const userExists = await userRepository.findByEmail(newUser.email);
-  const isEmailUsing = Boolean(userExists);
+  const userRepository = new PrismaUserRepository();
+  const createUserUseCase = new CreateUserUseCase(userRepository);
+  const resultCreate = await createUserUseCase.execute(newUser);
 
-  if (isEmailUsing) {
+  if (resultCreate.isRight()) {
+    const user = resultCreate.value;
+    return NextResponse.json(user, { status: 201 });
+  }
+
+  const error = resultCreate.error;
+  if (error === CreateUserUseCaseError.EMAIL_IN_USE) {
     return NextResponse.json(
       {
         message: "Este e-mail já esta sendo utlizado.",
@@ -41,7 +50,4 @@ export async function POST(request: Request, response: Response) {
       { status: 409 }
     );
   }
-
-  const user = await userRepository.create(newUser);
-  return NextResponse.json(user, { status: 201 });
 }

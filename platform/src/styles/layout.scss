@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  color: $lightTextPrimary;
+
+  @include dark{
+    color: $darkTextPrimary;
+  }
+}
+
+body {
+  background-color: $lightBackground;
+
+  @include dark {
+    background-color: $darkBackground;
+  }
+}

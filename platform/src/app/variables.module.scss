@@ -1,0 +1,26 @@
+$primaryColor: #914ceb;
+$secondaryColor: #e65ccf;
+
+$darkBackground: #333333;
+$darkSecondBackground: #212112;
+$darkTextPrimary: #fefefe;
+
+$lightBackground: #f5f5f5;
+$lightSecondBackground: #cccccc;
+$lightTextPrimary: #212121;
+
+$divisorColor: transparentize(rgba(#6b717f, 0.5), 0.2);
+$linkColor: #4787e9;
+
+:export {
+  primaryColor: $primaryColor;
+  secondaryColor: $secondaryColor;
+
+  darkBackground: $darkBackground;
+  darkSecondBackground: $darkSecondBackground;
+  darkTextPrimary: $darkTextPrimary;
+
+  lightBackground: $lightBackground;
+  lightSecondBackground: $lightSecondBackground;
+  lightTextPrimary: $lightTextPrimary;
+}

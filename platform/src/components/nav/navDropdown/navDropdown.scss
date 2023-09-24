@@ -1,0 +1,80 @@
+.dropdown-menu {
+  position: absolute;
+  width: 200px;
+  top: 95px;
+  right: 10px;
+  background-color: $lightSecondBackground;
+  border-radius: .3rem;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+
+  @include dark {
+    background-color: $darkSecondBackground;
+  }
+
+  &.active{
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    transition: 1s ease;
+  }
+
+  &.inactive{
+    opacity: 0;
+    visibility: visible;
+    transform: translateY(-500px);
+    transition: 1s ease;
+  }
+
+  &::before{
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    height: 20px;
+    width: 20px;
+    background-color: $lightSecondBackground;
+    transform: rotate(45deg);
+    transition: 1s ease;
+    @include dark {
+      background-color: $darkSecondBackground;
+    }
+  }
+
+  .item {
+    color: $lightTextPrimary;
+    padding: 15px 0;
+    list-style: none;
+    list-style-type: none;
+    text-align: left;
+        
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    transition: .5s;
+    &:hover{
+      background-color: transparentize(rgba(#6b717f, 0.5), 0.2); 
+      
+      @include dark {
+        background-color: transparentize(rgba(#6b717f, 0.5), 0.2); 
+      }
+    }
+    
+    span{
+      margin-left: 10px;
+    }
+
+    &:not(:first-child){
+      border-top: 1px solid $lightTextPrimary;
+      @include dark{
+        border-top: 1px solid $darkTextPrimary;
+      }
+    }
+
+  }
+}
