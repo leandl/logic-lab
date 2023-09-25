@@ -34,16 +34,16 @@ model Supervisor {
 }
 
 model QuestionCategory {
-  id       Int       @id @default(autoincrement())
-  name     String    @db.VarChar(50)
-  Question Question?
+  id        Int        @id @default(autoincrement())
+  name      String     @unique @db.VarChar(50)
+  questions Question[]
 
   @@map("question_category")
 }
 
 model Question {
   id                Int                @id @default(autoincrement())
-  name              String             @db.VarChar(50)
+  name              String             @unique @db.VarChar(50)
   description       String             @db.VarChar(250)
   typeResult        String             @map("type_result") @db.VarChar(50)
   descriptionResult String             @map("description_result") @db.VarChar(250)
@@ -71,7 +71,7 @@ model UserRoom {
 
 model Room {
   id                Int                @id @default(autoincrement())
-  name              String             @db.VarChar(50)
+  name              String             @unique @db.VarChar(50)
   supervisors       Supervisor[]
   userRoomQuestions UserRoomQuestion[]
   questions         Question[]
@@ -83,7 +83,7 @@ model Room {
 
 model Language {
   id                Int                @id @default(autoincrement())
-  name              String             @db.VarChar(50)
+  name              String             @unique @db.VarChar(50)
   userRoomQuestions UserRoomQuestion[]
 
   @@map("language")
@@ -91,13 +91,13 @@ model Language {
 
 model UserRoomQuestion {
   user       User     @relation(fields: [userId], references: [id])
-  userId     Int
+  userId     Int      @map("user_id")
   question   Question @relation(fields: [questionId], references: [id])
-  questionId Int
+  questionId Int      @map("question_id")
   room       Room     @relation(fields: [roomId], references: [id])
-  roomId     Int
+  roomId     Int      @map("room_id")
   language   Language @relation(fields: [languageId], references: [id])
-  languageId Int
+  languageId Int      @map("language_id")
   code       String   @db.MediumText
   passed     Boolean  @default(false)
 
