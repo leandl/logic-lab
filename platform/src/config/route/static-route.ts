@@ -1,7 +1,7 @@
 export const ROUTE = {
   API: {},
   APP: {
-    HOME: "/",
+    HOME: "/home",
     AUTH: {
       REGISTER: "/auth/register",
       LOGIN: "/auth/login",

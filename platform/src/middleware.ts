@@ -1,5 +1,4 @@
 import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
-import { ROUTE } from "@/config/route";
 export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
   callbacks: {
     authorized: ({ token }) => Boolean(token),
@@ -7,5 +6,5 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
 });
 
 export const config = {
-  matcher: ["/"],
+  matcher: ["/", "/home"],
 };

@@ -1,8 +1,6 @@
+import { ROUTE } from "@/config/route";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <main>
-      Home
-    </main>
-  )
+export default function InitialPage() {
+  redirect(ROUTE.APP.HOME);
 }
