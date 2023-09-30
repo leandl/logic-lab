@@ -1,21 +1,16 @@
-import { UserRepository } from "@/repositories/user.repository";
+import {
+  User,
+  UserCreate,
+  UserRepository,
+} from "@/repositories/user.repository";
 import { Either, Left, Right } from "@/utils/patterns";
 
 export enum CreateUserUseCaseError {
   EMAIL_IN_USE = "EMAIL_IN_USE",
 }
 
-type CreateUserInput = {
-  name: string;
-  email: string;
-  password: string;
-};
-
-type CreateUserOutput = {
-  name: string;
-  email: string;
-  password: string;
-};
+type CreateUserInput = UserCreate;
+type CreateUserOutput = User;
 
 export class CreateUserUseCase {
   constructor(private userRepo: UserRepository) {}

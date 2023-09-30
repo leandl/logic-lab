@@ -1,4 +1,4 @@
-import { PrismaUserRepository } from "@/repositories/prisma/prisma-user-repository";
+import { PrismaUserRepository } from "@/repositories/prisma/prisma-user.repository";
 import { NextResponse } from "next/server";
 
 export async function GET() {
