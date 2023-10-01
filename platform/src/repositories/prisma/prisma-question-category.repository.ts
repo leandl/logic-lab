@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { QuestionCategory as PrismaQuestionCategory } from "@prisma/client";
 import {
   QuestionCategory,
-  QuestionCategoryCreateDTO,
+  QuestionCategoryCreate,
   QuestionCategoryRepository,
 } from "@/repositories/question-category.repository";
 
@@ -43,9 +43,7 @@ export class PrismaQuestionCategoryRepository
     return categories.map(converPrismaQuestionCategoryToQuestionCategory);
   }
 
-  async create(
-    newCategory: QuestionCategoryCreateDTO
-  ): Promise<QuestionCategory> {
+  async create(newCategory: QuestionCategoryCreate): Promise<QuestionCategory> {
     const category = await prisma.questionCategory.create({
       data: { name: newCategory.name },
     });

@@ -7,11 +7,11 @@ import { Button } from "@/components/button/Button";
 
 import { useRouter } from 'next/navigation';
 import { ROUTE } from "@/config/route";
-import { User } from "@/repositories/user.repository";
+import { User, UserCreate } from "@/repositories/user.repository";
 import { CreateUserUseCaseError } from "@/application/user/create-user.use-case"
 import { EitherJSON } from "@/utils/patterns";
 import { useCallback } from "react";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 
 type FormRegisterData = {
   name: string;
@@ -20,7 +20,7 @@ type FormRegisterData = {
 }
 
 type FormRegisterProps = {
-  onCreateUser(user: User): Promise<EitherJSON<CreateUserUseCaseError, User>>;
+  onCreateUser(user: UserCreate): Promise<EitherJSON<CreateUserUseCaseError, User>>;
 
 }
 
@@ -64,7 +64,7 @@ export function FormRegister({ onCreateUser }: FormRegisterProps) {
         type="password"
       />
 
-      <Button name="Enviar" className="buttonSignin" />
+      <Button className="buttonSignin">Enviar</Button>
     </Form>
   )
 }

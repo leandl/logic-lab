@@ -5,7 +5,7 @@
 
   color: $lightTextPrimary;
 
-  @include dark{
+  @include dark {
     color: $darkTextPrimary;
   }
 }

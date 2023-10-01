@@ -1,5 +1,7 @@
 'use client';
+
 import { usePathname } from "next/navigation";
+
 import '../nav.scss';
 
 type NavItemProps = {
@@ -7,13 +9,12 @@ type NavItemProps = {
   children: React.ReactNode
 }
 export function NavItem({ route, children }: NavItemProps) {
-  function isActive(route: string) {
-
-    return usePathname().includes(route) ? 'active' : '';
-  }
+  const pathname = usePathname()
+  const inRoute = pathname.includes(route);
+  const navItemActive = inRoute ? 'active' : '';
 
   return (
-    <div className={"navItem active" + isActive(route)} >
+    <div className={`navItem ${navItemActive}`} >
       {children}
     </div>
   )

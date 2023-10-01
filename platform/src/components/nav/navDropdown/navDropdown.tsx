@@ -2,7 +2,7 @@
 import { LogOut, Moon, User } from "lucide-react";
 import './navDropdown.scss';
 import { signOut } from "next-auth/react";
-import { MutableRefObject, RefAttributes, forwardRef } from "react";
+import { forwardRef } from "react";
 import { useTheme } from "@/context/ThemeContext";
 
 type NavDropdownProps = {

@@ -4,19 +4,19 @@ import {
 } from "@/repositories/question-category.repository";
 import { Either, Right } from "@/utils/patterns";
 
-export enum ListAllQuestionCategotiesUseCaseError {
+export enum ListAllQuestionCategoriesUseCaseError {
   CATEGORY_IN_USE = "CATEGORY_IN_USE",
 }
 
-type ListAllQuestionCategotiesOutput = QuestionCategory[];
+type ListAllQuestionCategoriesOutput = QuestionCategory[];
 
-export class ListAllQuestionCategotiesUseCase {
+export class ListAllQuestionCategoriesUseCase {
   constructor(private questionCategoryRepo: QuestionCategoryRepository) {}
 
   async execute(): Promise<
     Either<
-      ListAllQuestionCategotiesUseCaseError,
-      ListAllQuestionCategotiesOutput
+      ListAllQuestionCategoriesUseCaseError,
+      ListAllQuestionCategoriesOutput
     >
   > {
     const categories = await this.questionCategoryRepo.getAll();

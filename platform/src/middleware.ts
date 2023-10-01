@@ -1,4 +1,5 @@
 import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
+
 export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
   callbacks: {
     authorized: ({ token }) => Boolean(token),
@@ -6,5 +7,11 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
 });
 
 export const config = {
-  matcher: ["/", "/home"],
+  matcher: [
+    "/",
+    "/home",
+    "/question/list",
+    "/question/create",
+    "/question/update/:questionId",
+  ],
 };

@@ -10,7 +10,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { ROUTE } from "@/config/route";
 import Link from "next/link";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 
 type FormLoginDataProps = {
   email: string;
@@ -26,10 +26,10 @@ export function FormLogin() {
   async function onSubmitLogin(data: FormLoginDataProps) {
     const signInResponse = await signIn("credentials", { ...data, redirect: false })
 
-    // if (signInResponse?.error) {
-    //   // toast.error("User not found")
-    //   return;
-    // }
+    if (signInResponse?.error) {
+      toast.error("User not found")
+      return;
+    }
 
     router.push(ROUTE.APP.HOME);
   }
@@ -53,7 +53,7 @@ export function FormLogin() {
         Não possui conta? <Link href={ROUTE.APP.AUTH.REGISTER}>Crie aqui</Link>.
       </small>
 
-      <Button name="Sign in" className="buttonSignin" />
+      <Button className="buttonSignin" >Sign in</Button>
     </Form>
   )
 }

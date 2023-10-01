@@ -1,9 +1,12 @@
 import { FolderSearch2, Library, Users } from "lucide-react"
 import './nav.scss'
 import { User } from "next-auth"
-import { NavItem } from "./navDropdown/navItem";
 import Link from "next/link";
+
+import { NavItem } from "./navDropdown/navItem";
 import { NavUser } from "./navUser/navUser";
+import { ROUTE } from "@/config/route";
+
 type NavProps = {
   user: User;
 }
@@ -12,13 +15,13 @@ export function Nav({ user }: NavProps) {
 
   return (
     <nav>
-      <Link href="/songsets">
-        <NavItem route="/songsets">
+      <Link href={ROUTE.APP.QUESTION.LIST}>
+        <NavItem route={ROUTE.APP.QUESTION.LIST}>
           <Library />
-          <span>Song Set</span>
+          <span>Questões</span>
         </NavItem>
       </Link>
-
+      {/* 
       <Link href="/songfinder">
         <NavItem route="/songfinder">
           <FolderSearch2 />
@@ -31,7 +34,7 @@ export function Nav({ user }: NavProps) {
           <Users />
           <span>Users</span>
         </NavItem>
-      </Link>
+      </Link> */}
 
       <NavUser user={user} />
     </nav>

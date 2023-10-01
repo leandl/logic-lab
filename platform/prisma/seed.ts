@@ -1,4 +1,4 @@
-import { createSupervisor } from "@/actions/supervisor/create-superviso";
+import { createSupervisor } from "@/actions/supervisor/create-supervisor.action";
 import { prisma } from "@/lib/prisma";
 
 async function main() {

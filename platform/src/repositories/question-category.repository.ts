@@ -3,7 +3,7 @@ export type QuestionCategory = {
   name: string;
 };
 
-export type QuestionCategoryCreateDTO = {
+export type QuestionCategoryCreate = {
   name: string;
 };
 
@@ -11,5 +11,5 @@ export interface QuestionCategoryRepository {
   findById(categoryId: number): Promise<QuestionCategory | null>;
   findByName(categoryName: string): Promise<QuestionCategory | null>;
   getAll(): Promise<QuestionCategory[]>;
-  create(user: QuestionCategoryCreateDTO): Promise<QuestionCategory>;
+  create(user: QuestionCategoryCreate): Promise<QuestionCategory>;
 }

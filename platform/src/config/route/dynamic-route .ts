@@ -9,10 +9,11 @@ function rp(route: string, params: Record<string, string>) {
 export const DYNAMIC_ROUTE = {
   API: {},
   APP: {
-    QUESTION: (roomId: number, questionId: number) =>
-      rp(ROUTE.APP.QUESTION, {
-        ":roomId": String(roomId),
-        ":questionId": String(questionId),
-      }),
+    QUESTION: {
+      UPDATE: (questionId: number) =>
+        rp(ROUTE.APP.QUESTION.UPDATE, {
+          ":questionId": String(questionId),
+        }),
+    },
   },
 };

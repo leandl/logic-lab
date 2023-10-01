@@ -1,18 +1,17 @@
-import { QuestionCategoryRepository } from "@/repositories/question-category.repository";
+import {
+  QuestionCategoryRepository,
+  QuestionCategory,
+  QuestionCategoryCreate,
+} from "@/repositories/question-category.repository";
 import { Either, Left, Right } from "@/utils/patterns";
 
 export enum CreateQuestionCategoryUseCaseError {
   CATEGORY_IN_USE = "CATEGORY_IN_USE",
 }
 
-type CreateQuestionCategoryInput = {
-  name: string;
-};
+type CreateQuestionCategoryInput = QuestionCategoryCreate;
 
-type CreateQuestionCategoryOutput = {
-  id: number;
-  name: string;
-};
+type CreateQuestionCategoryOutput = QuestionCategory;
 
 export class CreateQuestionCategoryUseCase {
   constructor(private questionCategoryRepo: QuestionCategoryRepository) {}

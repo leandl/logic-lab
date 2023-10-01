@@ -1,0 +1,22 @@
+.form-question {
+  .form-question-wrapper-category {
+    display: flex;
+    align-items: end;
+    width: 100%;
+
+    gap: 1rem;
+
+    & > div {
+      flex: 1;
+    }
+
+    .button {
+      max-width: 150px;
+      background-color: #7fec7b;
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
