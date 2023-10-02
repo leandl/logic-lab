@@ -12,7 +12,7 @@ import { ROUTE } from "@/config/route";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { Select } from "@/components/select";
-import { useCallback, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { FormHeader } from "@/components/form-header/form-header";
 import { Card } from "@/components/card/card";
 
@@ -21,6 +21,7 @@ import { QuestionCategory, QuestionCategoryCreate } from "@/repositories/questio
 import { CreateQuestionCategoryUseCaseError } from "@/application/question-categoty/create-question-categoty.use-case";
 import { EitherJSON } from "@/utils/patterns";
 import { Modal } from "@/components/Modal";
+import { register } from "module";
 
 enum Variable {
   INTEGER = "INTEGER",
@@ -62,22 +63,27 @@ type Param<V extends Variable = Variable> = {
   description: string;
 }
 
-type Test<A extends Param[], R extends Variable> = {
-  // args: ValidatorListByItem([ validators_by_type[param] for param in params ]),
-  result: R;
+type Tuple<T> = readonly T[] | readonly [];
+type Test<Variables extends Tuple<Variable> = any, ReturnVariable extends Variable = Variable> = {
+  args: {
+    [K in keyof Variables]: ConvertVariableToType[Variables[K]]
+  };
+  result: ConvertVariableToType[ReturnVariable];
 }
 
-type FormQuestionData = {
+
+type FormQuestionData<Variables extends Tuple<Variable> = Tuple<Variable>, ReturnVariable extends Variable = Variable> = {
   name: string;
   description: string;
-  params: Param[];
-  typeResult: Variable;
+  params: {
+    [K in keyof Variables]: Param<Variables[K]>
+  };
+  typeResult: ReturnVariable;
   descriptionResult: string;
   categoryId: number;
-  // tests: Test<Param[], Variable>[];
+  tests: Test<Variables, ReturnVariable>[];
   // documentMarkdown?: string;
 }
-
 
 type FormQuestionProps = {
   question?: FormQuestionData;
@@ -85,6 +91,7 @@ type FormQuestionProps = {
   addCategory(category: QuestionCategoryCreate): Promise<EitherJSON<CreateQuestionCategoryUseCaseError, QuestionCategory>>;
   addQuestion(question: any): Promise<any>
 }
+
 
 export function FormQuestion({
   question,
@@ -94,8 +101,17 @@ export function FormQuestion({
   const [categories, setCategories] = useState(initialCategories);
   const [isOpenModalAddCategory, setIsOpenModalAddCategory] = useState<boolean>(false)
 
-  const { register: questionRegister, handleSubmit: questionHandleSubmit, control: questionControl } = useForm<FormQuestionData>({ defaultValues: question });
-  const { register: categoryRegister, handleSubmit: categoryHandleSubmit } = useForm<{ name: string }>({ defaultValues: question });
+  const {
+    register: questionRegister,
+    unregister: questionUnregister,
+    handleSubmit: questionHandleSubmit,
+    control: questionControl,
+    watch: questionWatch
+  } = useForm<FormQuestionData>({ defaultValues: question });
+  const {
+    register: categoryRegister,
+    handleSubmit: categoryHandleSubmit
+  } = useForm<{ name: string }>({ defaultValues: question });
 
   const {
     fields: paramFields,
@@ -109,17 +125,20 @@ export function FormQuestion({
     }
   });
 
-  // const {
-  //   fields: testFields,
-  //   append: testAppend,
-  //   remove: testRemove
-  // } = useFieldArray({
-  //   control, // control props comes from useForm (optional: if you are using FormContext)
-  //   name: "tests", // unique name for your Field Array
-  //   rules: {
-  //     required: true
-  //   }
-  // });
+  const {
+    fields: testFields,
+    append: testAppend,
+    remove: testRemove
+  } = useFieldArray({
+    control: questionControl, // control props comes from useForm (optional: if you are using FormContext)
+    name: "tests", // unique name for your Field Array
+    rules: {
+      required: true
+    }
+  });
+
+  const params = questionWatch("params");
+
   const router = useRouter();
 
   const addParam = useCallback(() => {
@@ -130,6 +149,9 @@ export function FormQuestion({
     });
   }, [paramAppend]);
 
+  const addTest = useCallback(() => {
+    testAppend({} as FormQuestionData["tests"][number]);
+  }, [testAppend, params]);
 
   async function onSubmitQuestion(data: FormQuestionData) {
     console.log(data)
@@ -255,6 +277,27 @@ export function FormQuestion({
 
 
         </Card>
+
+
+        <div>
+          <Button onClick={addTest}>Adicionar Teste</Button>
+          {testFields.map((field, indexTest) => {
+
+            return (
+              <Card key={field.id}>
+                {params.map((param, index) => (
+                  <Input
+                    key={`tests.${indexTest}.args.${index}`}
+                    displayName={param.name}
+                    {...questionRegister(`tests.${indexTest}.args.${index}`)}
+                    type="text"
+                    className="nameInput"
+                  />
+                ))}
+              </Card>
+            )
+          })}
+        </div>
 
       </Form>
       {isOpenModalAddCategory && (
