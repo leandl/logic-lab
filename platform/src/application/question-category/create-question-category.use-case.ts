@@ -6,7 +6,7 @@ import {
 import { Either, Left, Right } from "@/utils/patterns";
 
 export enum CreateQuestionCategoryUseCaseError {
-  CATEGORY_IN_USE = "CATEGORY_IN_USE",
+  CATEGORY_IN_USE = "NAME_CATEGORY_IN_USE",
 }
 
 type CreateQuestionCategoryInput = QuestionCategoryCreate;

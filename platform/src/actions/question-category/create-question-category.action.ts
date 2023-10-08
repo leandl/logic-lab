@@ -1,13 +1,13 @@
 "use server";
 
-import { CreateQuestionCategoryUseCase } from "@/application/question-categoty/create-question-categoty.use-case";
+import { CreateQuestionCategoryUseCase } from "@/application/question-category/create-question-category.use-case";
 import { PrismaQuestionCategoryRepository } from "@/repositories/prisma/prisma-question-category.repository";
-import { QuestionCategory } from "@/repositories/question-category.repository";
+import { QuestionCategoryCreate } from "@/repositories/question-category.repository";
 
 import { convertEitherToEitherJSON } from "@/utils/patterns";
 
 export async function createQuestionCategory(
-  newQuestionCategory: QuestionCategory
+  newQuestionCategory: QuestionCategoryCreate
 ) {
   const prismaQuestionCategoryRepository =
     new PrismaQuestionCategoryRepository();

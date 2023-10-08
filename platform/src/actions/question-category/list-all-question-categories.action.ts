@@ -1,6 +1,6 @@
 "use server";
 
-import { ListAllQuestionCategoriesUseCase } from "@/application/question-categoty/list-all-question-categories.use-case";
+import { ListAllQuestionCategoriesUseCase } from "@/application/question-category/list-all-question-categories.use-case";
 import { PrismaQuestionCategoryRepository } from "@/repositories/prisma/prisma-question-category.repository";
 
 import { convertEitherToEitherJSON } from "@/utils/patterns";

@@ -16,12 +16,11 @@
     background-color: $lightBackground;
     color: $lightTextPrimary;
     height: 40px;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     outline: none;
     border: none;
     padding: 10px;
     font-size: 1rem;
-
     border: 1px solid $divisorColor;
 
     @include dark {
@@ -30,8 +29,8 @@
     }
   }
 
-  .error{
-    color: red;
-    font-size: .2rem;
+  .error {
+    color: $errorBackground;
+    font-size: 0.2rem;
   }
 }

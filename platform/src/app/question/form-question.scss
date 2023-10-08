@@ -1,19 +1,28 @@
 .form-question {
+  .error {
+    font-size: 0.9rem;
+    color: $errorBackground;
+  }
+
+  .card .card-header h3 {
+    font-size: 1.5rem;
+  }
+
   .form-question-wrapper-category {
     display: flex;
     align-items: end;
     width: 100%;
 
-    gap: 1rem;
+    gap: 0.5rem;
 
     & > div {
       flex: 1;
     }
 
     .button {
-      max-width: 150px;
-      background-color: #7fec7b;
-      color: #000;
+      width: 50px;
+      height: 40px;
+
       display: flex;
       justify-content: center;
       align-items: center;

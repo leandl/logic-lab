@@ -6,7 +6,7 @@ import {
 import { Either, Left, Right } from "@/utils/patterns";
 
 export enum CreateUserUseCaseError {
-  EMAIL_IN_USE = "EMAIL_IN_USE",
+  EMAIL_USER_IN_USE = "EMAIL_USER_IN_USE",
 }
 
 type CreateUserInput = UserCreate;
@@ -22,7 +22,7 @@ export class CreateUserUseCase {
     const isEmailUsing = Boolean(userExists);
 
     if (isEmailUsing) {
-      return Left.create(CreateUserUseCaseError.EMAIL_IN_USE);
+      return Left.create(CreateUserUseCaseError.EMAIL_USER_IN_USE);
     }
 
     const newUser = await this.userRepo.create(input);
