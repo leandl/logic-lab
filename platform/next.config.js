@@ -10,5 +10,6 @@ module.exports = (phase, { defaultConfig }) => {
     appDir: true,
     serverActions: true,
   };
+
   return defaultConfig;
 };

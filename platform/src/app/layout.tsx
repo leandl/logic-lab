@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   description: 'Logic-Lab',
 }
 
+
+
 export default async function RootLayout({
   children,
 }: {

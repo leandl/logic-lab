@@ -19,7 +19,7 @@ import "./form-question.scss"
 import { QuestionCategory, QuestionCategoryCreate } from "@/repositories/question-category.repository";
 import { Modal } from "@/components/Modal";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Question } from "@/repositories/question.repository";
+import { Question, Variable } from "@/repositories/question.repository";
 
 import { wrapperCreateQuestionCategoryServerToClient } from "@/actions/question-category/create-question-category.action";
 import { wrapperCreateQuestionServerToClient } from "@/actions/question/create-question.action";
@@ -27,39 +27,30 @@ import { wrapperUpdateQuestionServerToClient } from "@/actions/question/update-q
 import { CreateQuestionUseCaseError } from "@/application/question/create-question.use-case";
 import { ROUTE } from "@/config/route";
 import { UpdateQuestionUseCaseError } from "@/application/question/update-question.use-case";
-
-enum Variable {
-  INTEGER = "INTEGER",
-  FLOAT = "FLOAT",
-  STRING = "STRING",
-  BOOLEAN = "BOOLEAN",
-  INTEGER_ARRAY = "INTEGER-ARRAY",
-  FLOAT_ARRAY = "FLOAT-ARRAY",
-  STRING_ARRAY = "STRING-ARRAY",
-  BOOLEAN_ARRAY = "BOOLEAN-ARRAY",
-}
+import { Textarea } from "@/components/textarea/textarea";
+import { allComponentInputVariable } from "./input-by-variable";
 
 
 const labelVariable = {
   [Variable.INTEGER]: "INTEGER",
   [Variable.FLOAT]: "FLOAT",
   [Variable.STRING]: "STRING",
-  [Variable.BOOLEAN]: "BOOLEAN",
-  [Variable.INTEGER_ARRAY]: "ARRAY of INTEGER",
-  [Variable.FLOAT_ARRAY]: "ARRAY of FLOAT",
-  [Variable.STRING_ARRAY]: "ARRAY of STRING",
-  [Variable.BOOLEAN_ARRAY]: "ARRAY of BOOLEAN",
+  // [Variable.BOOLEAN]: "BOOLEAN",
+  // [Variable.INTEGER_ARRAY]: "ARRAY of INTEGER",
+  // [Variable.FLOAT_ARRAY]: "ARRAY of FLOAT",
+  // [Variable.STRING_ARRAY]: "ARRAY of STRING",
+  // [Variable.BOOLEAN_ARRAY]: "ARRAY of BOOLEAN",
 }
 
 type ConvertVariableToType = {
   [Variable.INTEGER]: number;
   [Variable.FLOAT]: number;
   [Variable.STRING]: string;
-  [Variable.BOOLEAN]: boolean;
-  [Variable.INTEGER_ARRAY]: number[];
-  [Variable.FLOAT_ARRAY]: number[];
-  [Variable.STRING_ARRAY]: string[];
-  [Variable.BOOLEAN_ARRAY]: boolean[];
+  // [Variable.BOOLEAN]: boolean;
+  // [Variable.INTEGER_ARRAY]: number[];
+  // [Variable.FLOAT_ARRAY]: number[];
+  // [Variable.STRING_ARRAY]: string[];
+  // [Variable.BOOLEAN_ARRAY]: boolean[];
 }
 
 
@@ -97,38 +88,38 @@ const VariableEnum = zod.enum([
   Variable.INTEGER,
   Variable.FLOAT,
   Variable.STRING,
-  Variable.BOOLEAN,
-  Variable.INTEGER_ARRAY,
-  Variable.FLOAT_ARRAY,
-  Variable.STRING_ARRAY,
-  Variable.BOOLEAN_ARRAY,
+  // Variable.BOOLEAN,
+  // Variable.INTEGER_ARRAY,
+  // Variable.FLOAT_ARRAY,
+  // Variable.STRING_ARRAY,
+  // Variable.BOOLEAN_ARRAY,
 ])
 
 const validateForVariable = {
   [Variable.INTEGER]: zod.number().int(),
   [Variable.FLOAT]: zod.number().transform(num => num.toFixed(2)),
   [Variable.STRING]: zod.string().nonempty(),
-  [Variable.BOOLEAN]: zod.boolean(),
-  [Variable.INTEGER_ARRAY]: zod.array(zod.number().int()),
-  [Variable.FLOAT_ARRAY]: zod.array(zod.number()).transform(numbers => numbers.map(num => num.toFixed(2))),
-  [Variable.STRING_ARRAY]: zod.array(zod.string().nonempty()),
-  [Variable.BOOLEAN_ARRAY]: zod.array(zod.boolean()),
+  // [Variable.BOOLEAN]: zod.boolean(),
+  // [Variable.INTEGER_ARRAY]: zod.array(zod.number().int()),
+  // [Variable.FLOAT_ARRAY]: zod.array(zod.number()).transform(numbers => numbers.map(num => num.toFixed(2))),
+  // [Variable.STRING_ARRAY]: zod.array(zod.string().nonempty()),
+  // [Variable.BOOLEAN_ARRAY]: zod.array(zod.boolean()),
 }
 
 const messageErrorForVariable = {
   [Variable.INTEGER]: "O valor deve ser um Inteiro",
   [Variable.FLOAT]: "O valor deve ser um Float",
   [Variable.STRING]: "O valor deve ser um String",
-  [Variable.BOOLEAN]: "O valor deve ser um Boolean",
-  [Variable.INTEGER_ARRAY]: "O valor deve ser um Vetor de Inteiro",
-  [Variable.FLOAT_ARRAY]: "O valor deve ser um Vetor de Float",
-  [Variable.STRING_ARRAY]: "O valor deve ser um Vetor de String",
-  [Variable.BOOLEAN_ARRAY]: "O valor deve ser um Vetor de Boolean",
+  // [Variable.BOOLEAN]: "O valor deve ser um Boolean",
+  // [Variable.INTEGER_ARRAY]: "O valor deve ser um Vetor de Inteiro",
+  // [Variable.FLOAT_ARRAY]: "O valor deve ser um Vetor de Float",
+  // [Variable.STRING_ARRAY]: "O valor deve ser um Vetor de String",
+  // [Variable.BOOLEAN_ARRAY]: "O valor deve ser um Vetor de Boolean",
 }
 
 const formQuestionSchema = zod.object({
-  name: zod.string().min(3, "Nome deve ter mais de 2 caracteres"),
-  description: zod.string().min(5, "Descrição deve ter mais de 4 caracteres"),
+  name: zod.string().min(3, "Nome deve ter mais de 2 caracteres").max(50, "Nome deve ter menos ou equal a 50 caracteres"),
+  description: zod.string().min(5, "Descrição deve ter mais de 4 caracteres").max(1024, "Descrição deve ter menos ou equal a 1024 caracteres"),
   params: zod.array(
     zod.object({
       name: zod.string().min(1, "Nome deve conter no mínimo 1 caracter"),
@@ -137,7 +128,7 @@ const formQuestionSchema = zod.object({
     })
   ).min(1, "Necessário adicionar um parâmetro"),
   typeResult: VariableEnum,
-  descriptionResult: zod.string().min(5, "Descrição deve ter mais de 4 caracteres"),
+  descriptionResult: zod.string().min(5, "Descrição deve ter mais de 4 caracteres").max(250, "Descrição de Retorno deve ter menos ou equal a 250 caracteres"),
   categoryId: zod.number().positive(),
   tests: zod.array(
     zod.object({
@@ -215,7 +206,11 @@ export function FormQuestion({
     mode: "all",
     criteriaMode: "all",
     resolver: zodResolver(formQuestionSchema),
-    defaultValues: question,
+    defaultValues: {
+      categoryId: categories[0]?.id,
+      typeResult: Variable.INTEGER,
+      ...question
+    },
   });
 
   const {
@@ -247,6 +242,7 @@ export function FormQuestion({
     }
   });
 
+  const resultType = questionWatch("typeResult", question?.typeResult ?? Variable.INTEGER);
   const params = questionWatch("params");
   const router = useRouter();
 
@@ -263,6 +259,7 @@ export function FormQuestion({
   }, [testAppend, params]);
 
   async function onSubmitQuestion(data: FormQuestionData) {
+    console.log(data)
     if (question?.id) {
       const result = await wrapperUpdateQuestionServerToClient(question.id, data);
       if (result.tag === "LEFT") {
@@ -295,7 +292,8 @@ export function FormQuestion({
     setIsOpenModalAddCategory(false);
   }
 
-  const formTitle = (question?.id) ? "Edita Questão" : "Cadastra Questão"
+  const formTitle = (question?.id) ? "Edita Questão" : "Cadastra Questão";
+  const labelButtonCreateOrUpdate = (question?.id) ? "Salvar Alterção" : "Criar Questão";
   const messageErrorParamsEmpty = errors.params?.message ?? errors.params?.root?.message;
   const messageErrorTestsEmpty = errors.tests?.message ?? errors.tests?.root?.message;
 
@@ -309,7 +307,7 @@ export function FormQuestion({
               className="buttonSignin"
               type="submit"
             >
-              Criar
+              {labelButtonCreateOrUpdate}
             </Button>
           )}
         />
@@ -328,7 +326,7 @@ export function FormQuestion({
                   errorMessage={errors.name?.message}
                 />
 
-                <Input
+                <Textarea
                   displayName="Descrição"
                   {...questionRegister("description", { required: true })}
                   type="text"
@@ -360,17 +358,14 @@ export function FormQuestion({
                     <option key={key} value={key}>{label}</option>
                   ))}
                 </Select>
-                <Input
-                  displayName="Descrição do retorno"
+                <Textarea
+                  displayName="Descrição do Retorno"
                   {...questionRegister("descriptionResult", { required: true })}
                   type="text"
                   className="nameInput"
                   errorMessage={errors.descriptionResult?.message}
                 />
-
-
               </Card>
-
             </div>
 
             <div className="col-4">
@@ -389,7 +384,7 @@ export function FormQuestion({
                     errorMessage={errors.params?.[index]?.name?.message}
                   />
 
-                  <Input
+                  <Textarea
                     displayName="Descrição"
                     {...questionRegister(`params.${index}.description`, { required: true })}
                     type="text"
@@ -415,27 +410,32 @@ export function FormQuestion({
               {messageErrorTestsEmpty && (
                 <span className="error">{messageErrorTestsEmpty}</span>
               )}
-              {testFields.map((field, indexTest) => (
-                <Card key={field.id} onClose={() => testRemove(indexTest)}>
-                  {params.map((param, index) => (
-                    <Input
-                      key={index}
-                      displayName={param.name}
-                      {...questionRegister(`tests.${indexTest}.args.${index}`)}
-                      type="text"
-                      className="nameInput"
-                      errorMessage={errors.tests?.[indexTest]?.args?.[index]?.message}
+              {testFields.map((field, indexTest) => {
+                const ComponentInputVariableResult = allComponentInputVariable[resultType];
+
+                return (
+                  <Card key={field.id} onClose={() => testRemove(indexTest)}>
+                    {params.map((param, index) => {
+                      const ComponentInputVariableParam = allComponentInputVariable[param.type];
+                      return (
+                        <ComponentInputVariableParam
+                          key={index}
+                          label={param.name}
+                          register={questionRegister}
+                          registerKey={`tests.${indexTest}.args.${index}`}
+                          errorMessage={errors.tests?.[indexTest]?.args?.[index]?.message}
+                        />
+                      )
+                    })}
+                    <ComponentInputVariableResult
+                      label="Retorno"
+                      register={questionRegister}
+                      registerKey={`tests.${indexTest}.result`}
+                      errorMessage={errors.tests?.[indexTest]?.result?.message}
                     />
-                  ))}
-                  <Input
-                    displayName="retorno"
-                    {...questionRegister(`tests.${indexTest}.result`)}
-                    type="text"
-                    className="nameInput"
-                    errorMessage={errors.tests?.[indexTest]?.result?.message}
-                  />
-                </Card>
-              ))}
+                  </Card>
+                )
+              })}
 
 
             </div>

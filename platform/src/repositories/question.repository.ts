@@ -2,22 +2,22 @@ export enum Variable {
   INTEGER = "INTEGER",
   FLOAT = "FLOAT",
   STRING = "STRING",
-  BOOLEAN = "BOOLEAN",
-  INTEGER_ARRAY = "INTEGER-ARRAY",
-  FLOAT_ARRAY = "FLOAT-ARRAY",
-  STRING_ARRAY = "STRING-ARRAY",
-  BOOLEAN_ARRAY = "BOOLEAN-ARRAY",
+  // BOOLEAN = "BOOLEAN",
+  // INTEGER_ARRAY = "INTEGER-ARRAY",
+  // FLOAT_ARRAY = "FLOAT-ARRAY",
+  // STRING_ARRAY = "STRING-ARRAY",
+  // BOOLEAN_ARRAY = "BOOLEAN-ARRAY",
 }
 
 type ConvertVariableToType = {
   [Variable.INTEGER]: number;
   [Variable.FLOAT]: number;
   [Variable.STRING]: string;
-  [Variable.BOOLEAN]: boolean;
-  [Variable.INTEGER_ARRAY]: number[];
-  [Variable.FLOAT_ARRAY]: number[];
-  [Variable.STRING_ARRAY]: string[];
-  [Variable.BOOLEAN_ARRAY]: boolean[];
+  // [Variable.BOOLEAN]: boolean;
+  // [Variable.INTEGER_ARRAY]: number[];
+  // [Variable.FLOAT_ARRAY]: number[];
+  // [Variable.STRING_ARRAY]: string[];
+  // [Variable.BOOLEAN_ARRAY]: boolean[];
 };
 
 export type Param<V extends Variable = Variable> = {

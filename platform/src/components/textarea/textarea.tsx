@@ -1,18 +1,18 @@
 'use client'
 import React, { forwardRef } from 'react'
-import './input.scss';
+import './textarea.scss';
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+type InputProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   displayName: string;
   name: string;
   errorMessage?: string;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(({ displayName, errorMessage, name, ...rest }: InputProps, ref) => {
+export const Textarea = forwardRef<HTMLTextAreaElement, InputProps>(({ displayName, errorMessage, name, ...rest }: InputProps, ref) => {
   return (
     <div className='inputGroup'>
       <label htmlFor={name}>{displayName}</label>
-      <input
+      <textarea
         ref={ref}
         {...rest}
         autoComplete="off"

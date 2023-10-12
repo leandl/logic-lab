@@ -7,6 +7,9 @@ import { Table, TableHeadRow as Head, TableRow as Row, TableCell as Cell } from 
 import { DYNAMIC_ROUTE, ROUTE } from "@/config/route";
 
 import "./question-list.scss";
+import { ButtonDownloadJSONData } from "./test";
+
+export const revalidate = 3;
 
 export default async function QuestionList() {
   const resultQuestions = await listAllQuestions()
@@ -15,14 +18,20 @@ export default async function QuestionList() {
   }
 
   const questions = resultQuestions.value;
+
   return (
     <Table className="page-list">
       <Head>
-        <Cell col={10}>Nome</Cell>
+        <Cell col={8}>Nome</Cell>
+        <Cell col={2}>
+          <div className="container-action">
+            <ButtonDownloadJSONData questions={questions}>JSON-DATA</ButtonDownloadJSONData>
+          </div>
+        </Cell>
         <Cell col={2}>
           <div className="container-action">
             <Link
-              className="container-action"
+              className="container-action button"
               href={ROUTE.APP.QUESTION.CREATE}
             >
               <Plus /> Questão
@@ -36,7 +45,7 @@ export default async function QuestionList() {
           <Cell col={10}>{question.name}</Cell>
           <Cell col={2}>
             <div className="container-action">
-              <Link href={DYNAMIC_ROUTE.APP.QUESTION.UPDATE(question.id)}>Editar</Link>
+              <Link prefetch={false} href={DYNAMIC_ROUTE.APP.QUESTION.UPDATE(question.id)}>Editar</Link>
             </div>
           </Cell>
         </Row>

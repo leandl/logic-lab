@@ -44,7 +44,7 @@ model QuestionCategory {
 model Question {
   id                Int                @id @default(autoincrement())
   name              String             @unique @db.VarChar(50)
-  description       String             @db.VarChar(250)
+  description       String             @db.VarChar(1024)
   typeResult        String             @map("type_result") @db.VarChar(50)
   descriptionResult String             @map("description_result") @db.VarChar(250)
   params            Json
@@ -53,7 +53,7 @@ model Question {
   userRoomQuestions UserRoomQuestion[]
   rooms             Room[]
   category          QuestionCategory   @relation(fields: [categoryId], references: [id])
-  categoryId        Int                @unique @map("category_id")
+  categoryId        Int                @map("category_id")
 
   @@map("question")
 }

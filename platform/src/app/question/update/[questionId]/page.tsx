@@ -10,6 +10,8 @@ type QuestionUpdateProps = {
   }
 }
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 3
 
 export default async function QuestionUpdate({ params }: QuestionUpdateProps) {
   const questionId = Number(params.questionId);
@@ -30,6 +32,7 @@ export default async function QuestionUpdate({ params }: QuestionUpdateProps) {
 
   const categories = resultCategories.value;
   const question = resultQuestion.value;
+
   return (
     <div>
       <FormQuestion
