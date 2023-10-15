@@ -1,3 +1,5 @@
+import { GLOBAL_ROOM } from "@/config/rules";
+import { RoomRepository } from "@/repositories/room.repository";
 import {
   User,
   UserCreate,
@@ -13,7 +15,10 @@ type CreateUserInput = UserCreate;
 type CreateUserOutput = User;
 
 export class CreateUserUseCase {
-  constructor(private userRepo: UserRepository) {}
+  constructor(
+    private userRepo: UserRepository,
+    private roomRepo: RoomRepository
+  ) {}
 
   async execute(
     input: CreateUserInput
@@ -26,6 +31,9 @@ export class CreateUserUseCase {
     }
 
     const newUser = await this.userRepo.create(input);
+    const room = await this.roomRepo.findByName(GLOBAL_ROOM);
+
+    await this.roomRepo.addUsers(room!.id, [newUser.id]);
     return Right.create(newUser);
   }
 }

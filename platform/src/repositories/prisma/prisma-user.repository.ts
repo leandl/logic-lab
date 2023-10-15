@@ -10,7 +10,6 @@ import {
 export class PrismaUserRepository implements UserRepository {
   async getAll(): Promise<User[]> {
     const users = await prisma.user.findMany();
-
     return users;
   }
 
@@ -21,14 +20,14 @@ export class PrismaUserRepository implements UserRepository {
       },
     });
 
-    return !user
-      ? null
-      : {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          password: user.password,
-        };
+    return (
+      user && {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      }
+    );
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -38,14 +37,14 @@ export class PrismaUserRepository implements UserRepository {
       },
     });
 
-    return !user
-      ? null
-      : {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          password: user.password,
-        };
+    return (
+      user && {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      }
+    );
   }
 
   async create(userCreate: UserCreate): Promise<User> {

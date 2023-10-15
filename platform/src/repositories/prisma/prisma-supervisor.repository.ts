@@ -15,4 +15,27 @@ export class PrismaSupervisorRepository implements SupervisorRepository {
       type: "supervisor",
     };
   }
+
+  async getById(userId: number): Promise<Supervisor | null> {
+    const user = await prisma.user.findFirst({
+      where: {
+        AND: {
+          id: userId,
+          supervisor: {
+            isNot: null,
+          },
+        },
+      },
+    });
+
+    return (
+      user && {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        type: "supervisor",
+      }
+    );
+  }
 }

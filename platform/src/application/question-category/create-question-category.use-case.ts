@@ -6,7 +6,7 @@ import {
 import { Either, Left, Right } from "@/utils/patterns";
 
 export enum CreateQuestionCategoryUseCaseError {
-  CATEGORY_IN_USE = "NAME_CATEGORY_IN_USE",
+  NAME_CATEGORY_IN_USE = "NAME_CATEGORY_IN_USE",
 }
 
 type CreateQuestionCategoryInput = QuestionCategoryCreate;
@@ -27,7 +27,9 @@ export class CreateQuestionCategoryUseCase {
     const isCategoryUsing = Boolean(categoryExists);
 
     if (isCategoryUsing) {
-      return Left.create(CreateQuestionCategoryUseCaseError.CATEGORY_IN_USE);
+      return Left.create(
+        CreateQuestionCategoryUseCaseError.NAME_CATEGORY_IN_USE
+      );
     }
 
     const newCategory = await this.questionCategoryRepo.create(input);

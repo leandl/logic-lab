@@ -6,7 +6,7 @@ import {
   QuestionCategoryRepository,
 } from "@/repositories/question-category.repository";
 
-function converPrismaQuestionCategoryToQuestionCategory(
+function convertPrismaQuestionCategoryToQuestionCategory(
   category: PrismaQuestionCategory
 ): QuestionCategory {
   return {
@@ -25,7 +25,9 @@ export class PrismaQuestionCategoryRepository
       },
     });
 
-    return category && converPrismaQuestionCategoryToQuestionCategory(category);
+    return (
+      category && convertPrismaQuestionCategoryToQuestionCategory(category)
+    );
   }
 
   async findByName(categoryName: string): Promise<QuestionCategory | null> {
@@ -35,12 +37,14 @@ export class PrismaQuestionCategoryRepository
       },
     });
 
-    return category && converPrismaQuestionCategoryToQuestionCategory(category);
+    return (
+      category && convertPrismaQuestionCategoryToQuestionCategory(category)
+    );
   }
 
   async getAll(): Promise<QuestionCategory[]> {
     const categories = await prisma.questionCategory.findMany();
-    return categories.map(converPrismaQuestionCategoryToQuestionCategory);
+    return categories.map(convertPrismaQuestionCategoryToQuestionCategory);
   }
 
   async create(newCategory: QuestionCategoryCreate): Promise<QuestionCategory> {
@@ -48,6 +52,8 @@ export class PrismaQuestionCategoryRepository
       data: { name: newCategory.name },
     });
 
-    return category && converPrismaQuestionCategoryToQuestionCategory(category);
+    return (
+      category && convertPrismaQuestionCategoryToQuestionCategory(category)
+    );
   }
 }

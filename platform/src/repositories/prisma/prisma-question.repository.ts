@@ -9,7 +9,7 @@ import {
   Variable,
 } from "@/repositories/question.repository";
 
-function converPrismaQuestionToQuestion(question: PrismaQuestion): Question {
+function convertPrismaQuestionToQuestion(question: PrismaQuestion): Question {
   return {
     id: question.id,
     name: question.name,
@@ -30,7 +30,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
       },
     });
 
-    return question && converPrismaQuestionToQuestion(question);
+    return question && convertPrismaQuestionToQuestion(question);
   }
 
   async findByName(questionName: string): Promise<Question | null> {
@@ -40,12 +40,12 @@ export class PrismaQuestionRepository implements QuestionRepository {
       },
     });
 
-    return question && converPrismaQuestionToQuestion(question);
+    return question && convertPrismaQuestionToQuestion(question);
   }
 
   async getAll(): Promise<Question[]> {
     const categories = await prisma.question.findMany();
-    return categories.map(converPrismaQuestionToQuestion);
+    return categories.map(convertPrismaQuestionToQuestion);
   }
 
   async create(newQuestion: QuestionCreate): Promise<Question> {
@@ -53,7 +53,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
       data: newQuestion,
     });
 
-    return question && converPrismaQuestionToQuestion(question);
+    return question && convertPrismaQuestionToQuestion(question);
   }
 
   async update(
@@ -67,6 +67,6 @@ export class PrismaQuestionRepository implements QuestionRepository {
       data: newQuestion,
     });
 
-    return question && converPrismaQuestionToQuestion(question);
+    return question && convertPrismaQuestionToQuestion(question);
   }
 }
