@@ -53,7 +53,12 @@ export class PrismaRoomRepository implements RoomRepository {
       },
       data: {
         supervisors: {
-          connect: userIDs.map((userId) => ({
+          deleteMany: {
+            userId: {
+              in: userIDs,
+            },
+          },
+          create: userIDs.map((userId) => ({
             userId: userId,
           })),
         },

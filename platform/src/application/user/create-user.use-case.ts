@@ -33,7 +33,10 @@ export class CreateUserUseCase {
     const newUser = await this.userRepo.create(input);
     const room = await this.roomRepo.findByName(GLOBAL_ROOM);
 
-    await this.roomRepo.addUsers(room!.id, [newUser.id]);
+    if (room) {
+      await this.roomRepo.addUsers(room.id, [newUser.id]);
+    }
+
     return Right.create(newUser);
   }
 }
