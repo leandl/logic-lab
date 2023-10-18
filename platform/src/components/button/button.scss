@@ -1,6 +1,10 @@
 .button {
   background-color: $primaryColor;
   color: $darkTextPrimary;
+  svg > * {
+    color: $darkTextPrimary;
+  }
+
   transition: background-color 0.5s;
 
   &:hover {
@@ -14,6 +18,10 @@
   @include dark {
     background-color: $secondaryColor;
     color: $lightTextPrimary;
+
+    svg > * {
+      color: $lightTextPrimary
+    }
 
     &:hover {
       background-color: darken($color: $secondaryColor, $amount: 5);

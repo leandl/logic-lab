@@ -17,7 +17,6 @@ import { Card } from "@/components/card/card";
 
 import "./form-question.scss"
 import { QuestionCategory, QuestionCategoryCreate } from "@/repositories/question-category.repository";
-import { Modal } from "@/components/Modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Question, Variable } from "@/repositories/question.repository";
 
@@ -29,6 +28,7 @@ import { ROUTE } from "@/config/route";
 import { UpdateQuestionUseCaseError } from "@/application/question/update-question.use-case";
 import { Textarea } from "@/components/textarea/textarea";
 import { allComponentInputVariable } from "./input-by-variable";
+import { Modal } from "@/components/Modal";
 
 
 const labelVariable = {
@@ -443,7 +443,7 @@ export function FormQuestion({
         </div>
       </Form>
       {isOpenModalAddCategory && (
-        <Modal size="md">
+        <Modal title="" className="sm" onCancel={() => setIsOpenModalAddCategory(false)}>
           <Form className="form-question" onSubmit={categoryHandleSubmit(onSubmitCategory)}>
             <FormHeader
               title="Adicionar Questão"

@@ -7,7 +7,6 @@ module.exports = (phase, { defaultConfig }) => {
     };
   }
   defaultConfig["experimental"] = {
-    appDir: true,
     serverActions: true,
   };
 
