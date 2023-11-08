@@ -1,0 +1,63 @@
+.wrapper-collapsible {
+  padding: 0;
+  margin: 0;
+
+  .collapsible-header {
+    background-color: darken($lightBackground, $amount: 10);
+    color: $lightTextPrimary;
+
+    @include dark {
+      background-color: lighten($darkBackground, $amount: 10);
+      color: $darkTextPrimary;
+
+      &.red {
+        background-color: #f06969;
+        color: $lightTextPrimary;
+      }
+
+      &.green {
+        background-color: #69f07f;
+        color: $lightTextPrimary;
+      }
+    }
+
+    &.red {
+      background-color: #f06969;
+      color: $lightTextPrimary;
+    }
+
+    &.green {
+      background-color: #69f07f;
+      color: $lightTextPrimary;
+    }
+
+    cursor: pointer;
+    padding: 1rem;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .collapsible-content {
+    max-height: 0px;
+    overflow: hidden;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    background-color: darken($lightBackground, $amount: 5);
+    color: $lightTextPrimary;
+    @include dark {
+      background-color: lighten($darkBackground, $amount: 5);
+      color: $darkTextPrimary;
+    }
+
+    &.active {
+      max-height: 100vh;
+      padding: 1rem;
+    }
+  }
+}

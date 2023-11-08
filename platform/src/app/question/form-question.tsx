@@ -98,7 +98,7 @@ const VariableEnum = zod.enum([
 const validateForVariable = {
   [Variable.INTEGER]: zod.number().int(),
   [Variable.FLOAT]: zod.number().transform(num => num.toFixed(2)),
-  [Variable.STRING]: zod.string().nonempty(),
+  [Variable.STRING]: zod.string().min(1),
   // [Variable.BOOLEAN]: zod.boolean(),
   // [Variable.INTEGER_ARRAY]: zod.array(zod.number().int()),
   // [Variable.FLOAT_ARRAY]: zod.array(zod.number()).transform(numbers => numbers.map(num => num.toFixed(2))),

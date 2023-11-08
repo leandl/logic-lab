@@ -10,11 +10,11 @@ type NavDropdownProps = {
 }
 
 export const NavDropdown = forwardRef<HTMLUListElement, NavDropdownProps>(({ isOpen }: NavDropdownProps, ref) => {
-  const { isDarkMode, toggleTheme } = useTheme();
+  // const { isDarkMode, toggleTheme } = useTheme();
 
   return (
     <ul ref={ref} className={`dropdown-menu ${isOpen ? 'active' : 'inactive'}`} >
-      <li className="item">
+      {/* <li className="item">
         <User className="icon" />
         <span>Profile</span>
       </li>
@@ -22,7 +22,7 @@ export const NavDropdown = forwardRef<HTMLUListElement, NavDropdownProps>(({ isO
       <li className="item" onClick={toggleTheme}>
         <Moon className="icon" />
         <span>Change Theme</span>
-      </li>
+      </li> */}
 
       <li className="item" onClick={() => signOut({ redirect: true })}>
         <LogOut className="icon" />

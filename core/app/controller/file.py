@@ -9,8 +9,7 @@ import json
 
 from ..common.utils import formater_response
 from ..entities.config import Config
-from ..validators import validator_data_file, validator_data_execute_file, validator_lang, validators_by_type
-from ..validators.validator_list_by_item import ValidatorListByItem
+from ..validators import validator_data_file, validator_data_execute_file, validator_lang, get_validator_tests
 from ..entities.generator_file.generator_python_file import GeneratorPythonFile
 from ..entities.execute_file.execute_python_file import ExecutePythonFile
 
@@ -70,12 +69,7 @@ def validate_exercise(lang):
 
     type_result = data.get("type-result")
     params = data.get("params")
-    validator_tests = v.dict({ 
-        "tests": v.list(v.dict({
-            "args": ValidatorListByItem([ validators_by_type[param] for param in params ]),
-            "result": validators_by_type[type_result]
-        }))
-    })
+    validator_tests = get_validator_tests(params, type_result)
 
     is_valid, errors = validator_tests.is_valid(data)
     if not is_valid:
@@ -108,7 +102,7 @@ def validate_exercise(lang):
 
     result_success = stdout.decode().strip().split("\n")[-1]
     return formater_response(200, {
-        "success": json.loads(result_success) if result_success else result_success,
-        "error": stderr.decode(),
-        "extra": extra
+        "success": json.loads(result_success) if result_success else None,
+        "error": stderr.decode() if stderr.decode() else None,
+        "extra": extra if extra else None
     })

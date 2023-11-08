@@ -1,0 +1,33 @@
+.termial-error {
+  width: 100%;
+  height: 70vh;
+
+  overflow-x: auto;
+  padding: 1rem;
+
+  background-color: darken($lightBackground, $amount: 5);
+  color: $lightTextPrimary;
+  @include dark {
+    background-color: lighten($darkBackground, $amount: 5);
+    color: $darkTextPrimary;
+  }
+}
+
+.editor-result {
+  position: relative;
+  .editor-selo {
+    position: absolute;
+    display: flex;
+    align-items: center;
+
+    gap: 0.5rem;
+    top: 0;
+    right: 0;
+    padding: 0.9rem;
+    font-size: 18px;
+  }
+}
+
+.button-validate {
+  margin-bottom: 1rem;
+}

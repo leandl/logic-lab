@@ -9,7 +9,7 @@ nav {
 
   font-size: larger;
 
-  padding: .5rem;
+  padding: 0.5rem;
 
   @include dark {
     background-color: $darkSecondBackground;
@@ -17,6 +17,8 @@ nav {
 
   .user {
     display: flex;
+    justify-content: center;
+    align-items: center;
 
     width: 300px;
     height: 100%;
@@ -42,9 +44,8 @@ nav {
       }
     }
 
-
     .pfp {
-      $pfpSize: 60px;
+      $pfpSize: 2rem;
       height: $pfpSize;
       width: $pfpSize;
       margin-left: 20px;
@@ -94,7 +95,6 @@ nav {
         @include dark {
           background-color: $secondaryColor;
         }
-
       }
     }
 
@@ -103,11 +103,11 @@ nav {
       display: flex;
       align-items: flex-end;
       color: $lightTextPrimary;
-      transition: .5s;
+      transition: 0.5s;
 
       @include dark {
         color: $darkTextPrimary;
-      }      
+      }
     }
   }
 }

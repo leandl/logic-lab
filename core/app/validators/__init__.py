@@ -1,4 +1,5 @@
 from wvalidate import Validate as v
+from .validator_list_by_item import ValidatorListByItem
 
 validator_lang = v.enum(["python", "python"])
 
@@ -14,16 +15,16 @@ validator_type = v.enum([
 ])
 
 validator_param = v.dict({
-    "name": v.string(min=3),
+    "name": v.string(min=1),
     "type": validator_type,
-    "description": v.string(min=10)
+    "description": v.string(min=5)
 })
 
 validator_data_file = v.dict({
     "name": v.string(min=3),
-    "description":  v.string(min=10),
+    "description":  v.string(min=5),
     "type-result": validator_type,
-    "description-result":  v.string(min=10),
+    "description-result":  v.string(min=5),
     "params": v.list(validator_param)
 })
 
@@ -39,7 +40,15 @@ validators_by_type = {
 }
 
 validator_data_execute_file = v.dict({
-    "code": v.string(min=30),
+    "code": v.string(),
     "type-result": validator_type,
     "params": v.list(validator_type)
 })
+
+def get_validator_tests(params, type_result):
+    return v.dict({ 
+        "tests": v.list(v.dict({
+            "args": ValidatorListByItem([ validators_by_type[param] for param in params ]),
+            "result": validators_by_type[type_result]
+        }))
+    })

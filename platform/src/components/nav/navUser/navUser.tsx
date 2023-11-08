@@ -43,13 +43,15 @@ export function NavUser({ user }: NavUserProps) {
     }
   })
 
+  const avatarURL = `https://api.dicebear.com/7.x/identicon/svg?seed=${user.name}`
+
   return (
     <div className="user">
       <div className="info">
         <span className="name">{user.name}</span>
       </div>
       <div className="pfp" onClick={() => { setIsDropdownOpen(!isDropdownOpen); }}>
-        <img src={user.name} alt="Profile Picture" />
+        <img src={avatarURL} alt="Profile Picture" />
       </div>
 
       <NavDropdown isOpen={isDropdownOpen} />
