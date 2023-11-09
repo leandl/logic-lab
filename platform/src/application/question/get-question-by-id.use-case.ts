@@ -4,8 +4,8 @@ import {
 } from "@/repositories/question.repository";
 import { Either, Left, Right } from "@/utils/patterns";
 
-export enum UpdateQuestionUseCaseError {
-  ID_INVALID = "ID_INVALID",
+export enum GetQuestionUseCaseError {
+  ID_INVALID = "QUESTION_ID_INVALID",
 }
 
 type GetQuestionByIdInput = number;
@@ -17,12 +17,12 @@ export class GetQuestionByIdUseCase {
 
   async execute(
     input: GetQuestionByIdInput
-  ): Promise<Either<UpdateQuestionUseCaseError, GetQuestionByIdOutput>> {
+  ): Promise<Either<GetQuestionUseCaseError, GetQuestionByIdOutput>> {
     const questionId = input;
     const question = await this.questionRepo.findById(questionId);
 
     if (!question) {
-      return Left.create(UpdateQuestionUseCaseError.ID_INVALID);
+      return Left.create(GetQuestionUseCaseError.ID_INVALID);
     }
 
     return Right.create(question);

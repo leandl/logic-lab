@@ -11,33 +11,27 @@ import "./editor.scss";
 import { Collapsible } from "@/components/collapsible/collapsible";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/button/Button";
+import { ResultVatidation } from "@/services/question.service";
 
-type HomePorps = {
+type EditorPorps = {
+  userId: number;
+  roomId: number;
   question: Question;
   initialCode: string;
 }
 
-type ResultValidationSuccess = {
-  args: any[];
-  expected_result: any;
-  passed: boolean;
-  result: any;
-}
 
-type ResultVatidation = {
-  error: string | null;
-  extra: string | null;
-  success: ResultValidationSuccess[]
-}
-
-export default function Editor({ question, initialCode }: HomePorps) {
+export default function Editor({ userId, roomId, question, initialCode }: Readonly<EditorPorps>) {
   const [contentFile, setContentFile] = useState<string>(initialCode);
   const [result, setResult] = useState<ResultVatidation | null>(null);
 
   const handleValidateCodeQuestion = useCallback(async () => {
-    const result = await wrapperValidateCodeQuestionUseCaseServerToClient({
-      question, code: contentFile
-    });
+    const result = await wrapperValidateCodeQuestionUseCaseServerToClient(
+      userId,
+      roomId,
+      question,
+      contentFile
+    );
 
     if (result.tag === "LEFT") {
       toast.error("Não possivel adicionar a categoria!");
@@ -49,7 +43,7 @@ export default function Editor({ question, initialCode }: HomePorps) {
 
   }, [contentFile]);
 
-  const allTestsOk = result?.success.every((r) => r.passed) || false
+  const allTestsOk = result?.success?.every((r) => r.passed) ?? false
 
   return (
     <div className="container editor">

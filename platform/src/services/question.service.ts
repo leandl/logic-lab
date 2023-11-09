@@ -1,5 +1,18 @@
 import { Question } from "@/repositories/question.repository";
 
+type ResultValidationSuccess = {
+  args: any[];
+  expected_result: any;
+  passed: boolean;
+  result: any;
+};
+
+export type ResultVatidation = {
+  error: string | null;
+  extra: string | null;
+  success: ResultValidationSuccess[] | null;
+};
+
 export class QuestionService {
   async generateFile(question: Question) {
     const rawResponse = await fetch(
@@ -24,7 +37,7 @@ export class QuestionService {
     return content.file_content as string;
   }
 
-  async isValid(question: Question, code: string) {
+  async isValid(question: Question, code: string): Promise<ResultVatidation> {
     const rawResponse = await fetch(
       "http://localhost:5000/validate-exercise/python",
       {
