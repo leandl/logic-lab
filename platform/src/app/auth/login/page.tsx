@@ -17,8 +17,7 @@ export default async function Login() {
 
   return (
     <div className="loginPage">
-      <span>Login</span>
-      <Modal size="sm">
+      <Modal className="sm" title='Login'>
         <FormLogin />
       </Modal>
     </div>

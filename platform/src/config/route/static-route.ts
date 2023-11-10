@@ -11,7 +11,7 @@ export const ROUTE = {
       CREATE: "/question/create",
       UPDATE: "/question/update/:questionId",
     },
-    ROUTE: {},
+    EDITOR: "/editor/:roomId/:questionId",
   },
 };
 

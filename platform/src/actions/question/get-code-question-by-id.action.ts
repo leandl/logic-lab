@@ -5,7 +5,7 @@ import {
   GetCodeQuestionByIdUseCase,
 } from "@/application/question/get-code-question-by-id.use-case";
 import { Either, convertEitherToEitherJSON } from "@/utils/patterns";
-import { getQuestionById } from "./get-question-by-id.use-case";
+import { getQuestionById } from "./get-question-by-id.action";
 import { QuestionService } from "@/services/question.service";
 import { PrismaRoomQuestionRepository } from "@/repositories/prisma/prisma-room-question.repository";
 import { getUserById } from "../user/get-user-by-id.use-case";

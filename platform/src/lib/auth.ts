@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
           user.password
         );
 
-        const userType = user.supervisor !== null ? "USER" : "SUPERVISOR";
+        const userType = user.supervisor === null ? "USER" : "SUPERVISOR";
         return !isValidPassword
           ? null
           : {

@@ -1,4 +1,4 @@
-import { GLOBAL_ROOM } from "@/config/rules";
+import { GENERAL_ROOM_NAME } from "@/config/rules";
 import { RoomRepository } from "@/repositories/room.repository";
 import {
   User,
@@ -31,7 +31,7 @@ export class CreateUserUseCase {
     }
 
     const newUser = await this.userRepo.create(input);
-    const room = await this.roomRepo.findByName(GLOBAL_ROOM);
+    const room = await this.roomRepo.findByName(GENERAL_ROOM_NAME);
 
     if (room) {
       await this.roomRepo.addUsers(room.id, [newUser.id]);

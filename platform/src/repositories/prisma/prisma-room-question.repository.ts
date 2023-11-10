@@ -1,13 +1,12 @@
 import { Language } from "@/entities/languange";
 import {
+  AllRoomQuestionOfUser,
   RoomQuestion,
   RoomQuestionCreate,
   RoomQuestionRepository,
   RoomQuestionUpdate,
 } from "../room-question.repository";
 import { prisma } from "@/lib/prisma";
-
-const LANGUAGE_PYTHON_ID = 1;
 
 type OneRoomQuestionRetorn = {
   code: string;
@@ -47,6 +46,38 @@ function convertOneRoomQuestionRetornToRoomQuestion(
   };
 }
 
+type AllRoomQuestionOfUserRetorn = {
+  name: string;
+  id: number;
+  questions: {
+    question: {
+      id: number;
+      name: string;
+      category: {
+        name: string;
+      };
+      userRoomQuestions: {
+        passed: boolean;
+      }[];
+    };
+  }[];
+};
+
+function convertAllRoomQuestionOfUserRetornToAllRoomQuestionOfUser(
+  data: AllRoomQuestionOfUserRetorn
+): AllRoomQuestionOfUser {
+  return {
+    id: data.id,
+    name: data.name,
+    questions: data.questions.map((data) => ({
+      id: data.question.id,
+      name: data.question.name,
+      category: data.question.category.name,
+      passed: data.question.userRoomQuestions[0]?.passed || false,
+    })),
+  };
+}
+
 const querySelectIdAndName = {
   select: {
     id: true,
@@ -55,7 +86,7 @@ const querySelectIdAndName = {
 };
 
 export class PrismaRoomQuestionRepository implements RoomQuestionRepository {
-  async get(
+  async getOfUser(
     userId: number,
     roomId: number,
     questionId: number,
@@ -133,6 +164,52 @@ export class PrismaRoomQuestionRepository implements RoomQuestionRepository {
     });
     return (
       roomQuestion && convertOneRoomQuestionRetornToRoomQuestion(roomQuestion)
+    );
+  }
+
+  async getAllOfUser(
+    userId: number,
+    roomId: number,
+    languageId: number
+  ): Promise<AllRoomQuestionOfUser | null> {
+    const result = await prisma.room.findUnique({
+      select: {
+        id: true,
+        name: true,
+        questions: {
+          select: {
+            question: {
+              select: {
+                id: true,
+                name: true,
+                category: {
+                  select: {
+                    name: true,
+                  },
+                },
+                userRoomQuestions: {
+                  take: 1,
+                  select: {
+                    passed: true,
+                  },
+                  where: {
+                    userId: userId,
+                    languageId: languageId,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      where: {
+        id: roomId,
+      },
+    });
+
+    return (
+      result &&
+      convertAllRoomQuestionOfUserRetornToAllRoomQuestionOfUser(result)
     );
   }
 }

@@ -6,10 +6,10 @@
   margin-bottom: 2rem;
   padding-bottom: 1rem;
 
-  border-bottom: solid 2px $lightTextPrimary;
+  border-bottom: solid 1px $lightTextPrimary;
 
   @include dark {
-    border-bottom: solid 2px $darkTextPrimary;
+    border-bottom: solid 1px $darkTextPrimary;
   }
 
   .title {

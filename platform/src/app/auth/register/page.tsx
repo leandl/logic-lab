@@ -17,13 +17,9 @@ export default async function Register() {
     redirect(ROUTE.APP.HOME, "push" as RedirectType)
   }
 
-
-
-
   return (
     <div className="page-register">
-      <span>Criar Conta</span>
-      <Modal size="sm">
+      <Modal className="sm" title='Cadastrar'>
         <FormRegister onCreateUser={wrapperCreateUserServerToClient} />
       </Modal>
     </div>

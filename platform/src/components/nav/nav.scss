@@ -4,7 +4,10 @@ nav {
   display: flex;
 
   align-items: center;
-  background-color: $lightSecondBackground;
+  background-color: transparentize(
+    darken($color: $lightBackground, $amount: 7),
+    0.3
+  );
   height: $heightNav;
 
   font-size: larger;
@@ -12,7 +15,10 @@ nav {
   padding: 0.5rem;
 
   @include dark {
-    background-color: $darkSecondBackground;
+    background-color: transparentize(
+      lighten($color: $darkBackground, $amount: 7),
+      0.3
+    );
   }
 
   .user {

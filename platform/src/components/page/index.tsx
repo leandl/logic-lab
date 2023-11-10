@@ -1,20 +1,17 @@
 import { ReactNode } from "react";
 import './page.scss';
-import { useTheme } from "@/context/ThemeContext";
-import { getServerSession } from "next-auth";
+
 import { Nav } from "../nav";
-import { authOptions } from "@/lib/auth";
-// import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
+
 type PageProps = {
   children: ReactNode;
 }
 
 export async function Page({ children }: PageProps) {
-  const session = await getServerSession(authOptions);
-
   return (
     <div className="content">
-      {/* <Toaster
+      <Toaster
         position="top-center"
         reverseOrder={false}
         toastOptions={
@@ -31,11 +28,8 @@ export async function Page({ children }: PageProps) {
             }
           }
         }
-      /> */}
-      <header>
-        {session && (
-          <Nav user={session.user} />
-        )}
+      />
+      <header><Nav />
       </header>
       <div className="main">
         {children}

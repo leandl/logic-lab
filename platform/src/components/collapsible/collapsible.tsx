@@ -7,7 +7,7 @@ type CollapsibleProps = {
   children: ReactNode;
 }
 
-export function Collapsible({ title, color, children }: CollapsibleProps) {
+export function Collapsible({ title, color, children }: Readonly<CollapsibleProps>) {
   const [active, setActive] = useState<boolean>(true);
   const classNameCollapsibleContent = active ? "collapsible-content active" : "collapsible-content";
   const classNameCollapsibleHeader = color ? `collapsible-header ${color}` : "collapsible-header";

@@ -1,3 +1,4 @@
+import { LANGUAGE_PYTHON_ID } from "@/config/rules";
 import { Question } from "@/repositories/question.repository";
 import { RoomQuestionRepository } from "@/repositories/room-question.repository";
 import { Room } from "@/repositories/room.repository";
@@ -16,8 +17,6 @@ export type GetCodeQuestionByIdOutput = {
   code: string;
 };
 
-const LANGUAGE_PYTHON_ID = 1;
-
 export class GetCodeQuestionByIdUseCase {
   constructor(
     private roomQuestionRepository: RoomQuestionRepository,
@@ -29,7 +28,7 @@ export class GetCodeQuestionByIdUseCase {
   ): Promise<Either<never, GetCodeQuestionByIdOutput>> {
     const { user, room, question } = input;
 
-    const roomQuestion = await this.roomQuestionRepository.get(
+    const roomQuestion = await this.roomQuestionRepository.getOfUser(
       user.id,
       room.id,
       question.id,

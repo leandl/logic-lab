@@ -16,7 +16,7 @@ export function Modal({ title, children, className, onCancel, footer }: ModalPro
       <div className={`modalContainer ${className}`}>
         <div className="title">
           <h3>{title}</h3>
-          <X className='iconClose' onClick={onCancel} />
+          {onCancel && <X className='iconClose' onClick={onCancel} />}
         </div>
         <div className="modalBody">
           {children}

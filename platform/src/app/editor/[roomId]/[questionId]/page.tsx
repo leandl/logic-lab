@@ -2,7 +2,7 @@
 import Editor from "./editor";
 import { redirect } from "next/navigation";
 import { ROUTE } from "@/config/route";
-import { getCodeQuestionById } from "@/actions/question/get-code-question-by-id.use-case";
+import { getCodeQuestionById } from "@/actions/question/get-code-question-by-id.action";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
@@ -12,6 +12,9 @@ type PageEditorProps = {
     questionId: string;
   }
 }
+
+export const revalidate = 0;
+export const dynamic = 'force-dynamic'
 
 export default async function PageEditor({ params }: Readonly<PageEditorProps>) {
   const session = await getServerSession(authOptions);

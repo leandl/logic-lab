@@ -7,9 +7,10 @@ import { Table, TableHeadRow as Head, TableRow as Row, TableCell as Cell } from 
 import { DYNAMIC_ROUTE, ROUTE } from "@/config/route";
 
 import "./question-list.scss";
-import { ButtonDownloadJSONData } from "./test";
+import { ButtonDownloadJSONData } from "./button-download-json-data";
 
-export const revalidate = 3;
+export const revalidate = 0;
+export const dynamic = 'force-dynamic'
 
 export default async function QuestionList() {
   const resultQuestions = await listAllQuestions()

@@ -29,13 +29,29 @@ export type RoomQuestionUpdate = {
   passed: boolean;
 };
 
+export type AllRoomQuestionOfUser = {
+  id: number;
+  name: string;
+  questions: {
+    id: number;
+    name: string;
+    category: string;
+    passed: boolean;
+  }[];
+};
+
 export interface RoomQuestionRepository {
-  get(
+  create(data: RoomQuestionCreate): Promise<RoomQuestion>;
+  update(data: RoomQuestionUpdate): Promise<RoomQuestion>;
+  getOfUser(
     userId: number,
     roomId: number,
     questionId: number,
     languageId: number
   ): Promise<RoomQuestion | null>;
-  create(data: RoomQuestionCreate): Promise<RoomQuestion>;
-  update(data: RoomQuestionUpdate): Promise<RoomQuestion>;
+  getAllOfUser(
+    userId: number,
+    roomId: number,
+    languageId: number
+  ): Promise<AllRoomQuestionOfUser | null>;
 }

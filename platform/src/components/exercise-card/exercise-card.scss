@@ -1,32 +1,20 @@
-.card {
-  padding: 2rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+.exercise-card {
+  padding: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   position: relative;
   border-radius: 4px;
 
-  .card-header {
+  height: 100px;
+
+  .exercise-card-header {
     width: 100%;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-
-    border-bottom: solid 2px $lightTextPrimary;
-
-    @include dark {
-      border-bottom: solid 2px $darkTextPrimary;
-    }
+    margin-bottom: 0.5rem;
 
     h3 {
-      font-size: 1.8rem;
+      font-size: 1.1rem;
       font-weight: bold;
     }
-  }
-
-  .card-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
   }
 
   background-color: transparentize(
@@ -40,27 +28,18 @@
     );
   }
 
-  .card-close {
+  .exercise-card-passed {
     position: absolute;
     right: 0;
     top: 0;
-    cursor: pointer;
 
-    $cardCloseackground: $errorBackground;
+    $cardCloseackground: #69f07f;
     background-color: $cardCloseackground;
     transition: background-color 0.5s;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    &:hover {
-      background-color: darken($color: $cardCloseackground, $amount: 10);
-    }
-
-    &:active {
-      background-color: lighten($color: $cardCloseackground, $amount: 10);
-    }
 
     & > .icon {
       color: #fff !important;

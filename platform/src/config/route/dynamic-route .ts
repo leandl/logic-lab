@@ -15,5 +15,10 @@ export const DYNAMIC_ROUTE = {
           ":questionId": String(questionId),
         }),
     },
+    EDITOR: (roomId: number, questionId: number) =>
+      rp(ROUTE.APP.EDITOR, {
+        ":roomId": String(roomId),
+        ":questionId": String(questionId),
+      }),
   },
 };

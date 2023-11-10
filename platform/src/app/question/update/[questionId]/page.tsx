@@ -2,7 +2,7 @@ import { listAllQuestionCategories } from "@/actions/question-category/list-all-
 import { FormQuestion } from "../../form-question";
 import { redirect } from "next/navigation";
 import { ROUTE } from "@/config/route";
-import { getQuestionById } from "@/actions/question/get-question-by-id.use-case";
+import { getQuestionById } from "@/actions/question/get-question-by-id.action";
 
 type QuestionUpdateProps = {
   params: {
@@ -10,8 +10,8 @@ type QuestionUpdateProps = {
   }
 }
 
+export const revalidate = 0;
 export const dynamic = 'force-dynamic'
-export const revalidate = 3
 
 export default async function QuestionUpdate({ params }: QuestionUpdateProps) {
   const questionId = Number(params.questionId);

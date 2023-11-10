@@ -1,3 +1,4 @@
+import { LANGUAGE_PYTHON_ID } from "@/config/rules";
 import { Question } from "@/repositories/question.repository";
 import { RoomQuestionRepository } from "@/repositories/room-question.repository";
 import { Room } from "@/repositories/room.repository";
@@ -14,7 +15,6 @@ export type ValidateCodeQuestionInput = {
 
 export type ValidateCodeQuestionOutput = ResultVatidation;
 
-const LANGUAGE_PYTHON_ID = 1;
 export class ValidateCodeQuestionUseCase {
   constructor(
     private roomQuestionRepository: RoomQuestionRepository,

@@ -292,7 +292,7 @@ export function FormQuestion({
     setIsOpenModalAddCategory(false);
   }
 
-  const formTitle = (question?.id) ? "Edita Questão" : "Cadastra Questão";
+  const formTitle = (question?.id) ? "Editar Questão" : "Cadastrar Questão";
   const labelButtonCreateOrUpdate = (question?.id) ? "Salvar Alterção" : "Criar Questão";
   const messageErrorParamsEmpty = errors.params?.message ?? errors.params?.root?.message;
   const messageErrorTestsEmpty = errors.tests?.message ?? errors.tests?.root?.message;
@@ -316,7 +316,7 @@ export function FormQuestion({
           <div className="row">
             <div className="col-4">
 
-              <Card title="Informações Basicas">
+              <Card title="Informações básicas">
                 <Input
                   displayName="Name"
                   {...questionRegister("name")}
@@ -348,9 +348,9 @@ export function FormQuestion({
                 </div>
               </Card>
 
-              <Card title="Informações de Retorno">
+              <Card title="Informações de retorno">
                 <Select
-                  displayName="Tipo de Retorno"
+                  displayName="Tipo de retorno"
                   {...questionRegister("typeResult", { required: true })}
                   errorMessage={errors.typeResult?.message}
                 >
@@ -359,7 +359,7 @@ export function FormQuestion({
                   ))}
                 </Select>
                 <Textarea
-                  displayName="Descrição do Retorno"
+                  displayName="Descrição do retorno"
                   {...questionRegister("descriptionResult", { required: true })}
                   type="text"
                   className="nameInput"

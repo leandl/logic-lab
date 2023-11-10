@@ -3,11 +3,9 @@ import { createRoom } from "@/actions/room/create-room.action";
 import { createSupervisor } from "@/actions/supervisor/create-supervisor.action";
 import { CreateLanguageUseCaseError } from "@/application/language/create-language.use-case";
 import { CreateRoomUseCaseError } from "@/application/room/create-room.use-case";
-import { CreateUserUseCaseError } from "@/application/user/create-user.use-case";
-import { GLOBAL_ROOM } from "@/config/rules";
+import { GENERAL_ROOM_NAME } from "@/config/rules";
 import { Language } from "@/entities/languange";
 import { prisma } from "@/lib/prisma";
-import { PrismaUserRepository } from "@/repositories/prisma/prisma-user.repository";
 
 async function main() {
   const resultSupervisor = await createSupervisor({
@@ -16,10 +14,7 @@ async function main() {
     password: "123456",
   });
 
-  if (
-    resultSupervisor.isLeft() &&
-    resultSupervisor.error !== CreateUserUseCaseError.EMAIL_USER_IN_USE
-  ) {
+  if (resultSupervisor.isLeft()) {
     throw Error(resultSupervisor.error);
   }
 
@@ -34,14 +29,10 @@ async function main() {
     throw Error(resultLanguage.error);
   }
 
-  const prismaUserRepository = new PrismaUserRepository();
-  const supervisor = await prismaUserRepository.findByEmail(
-    "leandro@email.com"
-  );
-
+  const supervisor = resultSupervisor.value;
   const ressultRoom = await createRoom({
-    name: GLOBAL_ROOM,
-    supervisorId: supervisor!.id,
+    name: GENERAL_ROOM_NAME,
+    supervisorId: supervisor.id,
   });
 
   if (

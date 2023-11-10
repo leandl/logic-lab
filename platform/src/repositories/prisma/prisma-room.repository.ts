@@ -46,7 +46,7 @@ export class PrismaRoomRepository implements RoomRepository {
     return room && convertPrismaRoomToRoom(room);
   }
 
-  async addSupervisors(roomId: number, userIDs: number[]): Promise<void> {
+  async addSupervisors(roomId: number, supervisorIDs: number[]): Promise<void> {
     await prisma.room.update({
       where: {
         id: roomId,
@@ -54,12 +54,15 @@ export class PrismaRoomRepository implements RoomRepository {
       data: {
         supervisors: {
           deleteMany: {
-            userId: {
-              in: userIDs,
+            AND: {
+              roomId: roomId,
+              supervisorId: {
+                in: supervisorIDs,
+              },
             },
           },
-          create: userIDs.map((userId) => ({
-            userId: userId,
+          create: supervisorIDs.map((supervisorId) => ({
+            supervisorId: supervisorId,
           })),
         },
       },
@@ -72,7 +75,7 @@ export class PrismaRoomRepository implements RoomRepository {
         id: roomId,
       },
       data: {
-        userRooms: {
+        users: {
           deleteMany: {
             AND: {
               roomId: roomId,
@@ -96,8 +99,16 @@ export class PrismaRoomRepository implements RoomRepository {
       },
       data: {
         questions: {
-          connect: questionIDs.map((questionId) => ({
-            id: questionId,
+          deleteMany: {
+            AND: {
+              roomId: roomId,
+              questionId: {
+                in: questionIDs,
+              },
+            },
+          },
+          create: questionIDs.map((questionId) => ({
+            questionId: questionId,
           })),
         },
       },

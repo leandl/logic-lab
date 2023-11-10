@@ -8,52 +8,74 @@
   justify-content: center;
   align-items: center;
 
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: transparentize(
+    darken($color: $lightBackground, $amount: 7),
+    0.5
+  );
+  @include dark {
+    background-color: transparentize(
+      lighten($color: $darkBackground, $amount: 7),
+      0.5
+    );
+  }
 
   .modalContainer {
     width: 400;
-    height: 270px;
-    
+    padding: 1rem;
+    // height: 270px;
+
     &.sm {
       width: 400px;
-      height: 270px;
-    }
-  
-    &.md {
-      width: 600px;
-      height: 400px;
-    }
-  
-    &.lg {
-      width: 70%;
-      height: 700px;
+      // height: 270px;
     }
 
-    .title{
+    &.md {
+      width: 600px;
+      // height: 400px;
+    }
+
+    &.lg {
+      width: 70%;
+      // height: 700px;
+    }
+
+    .title {
       display: flex;
 
       justify-content: space-between;
 
-      .iconClose{
+      .iconClose {
         cursor: pointer;
       }
     }
 
     border-radius: 12px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(189, 189, 189, 0.35) 0px 5px 5px;
     display: flex;
     flex-direction: column;
     padding: 25px;
 
-    background-color: $lightSecondBackground;
-    
-    @include dark{
-      background-color: $darkSecondBackground;
+    background-color: transparentize(
+      darken($color: $lightBackground, $amount: 7),
+      0.1
+    );
+    @include dark {
+      background-color: transparentize(
+        lighten($color: $darkBackground, $amount: 7),
+        0.1
+      );
     }
+  }
+
+  .title h3 {
+    font-size: 1.7rem;
+    font-weight: bold;
   }
 
   .modalBody {
     flex: 65%;
+    justify-content: center;
+    align-items: center;
     display: flex;
     padding: 1rem;
     height: 100%;

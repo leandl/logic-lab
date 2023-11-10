@@ -25,10 +25,10 @@ model User {
 }
 
 model Supervisor {
-  id     Int    @id @default(autoincrement())
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique @map("user_id")
-  rooms  Room[]
+  id     Int              @id @default(autoincrement())
+  user   User             @relation(fields: [userId], references: [id])
+  userId Int              @unique @map("user_id")
+  rooms  SupervisorRoom[]
 
   @@map("supervisor")
 }
@@ -51,9 +51,9 @@ model Question {
   tests             Json
   documentMarkdown  String?            @map("document_markdown") @db.MediumText
   userRoomQuestions UserRoomQuestion[]
-  rooms             Room[]
   category          QuestionCategory   @relation(fields: [categoryId], references: [id])
   categoryId        Int                @map("category_id")
+  rooms             RoomQuestion[]
 
   @@map("question")
 }
@@ -69,13 +69,34 @@ model UserRoom {
   @@map("user_room")
 }
 
+model SupervisorRoom {
+  supervisor   Supervisor @relation(fields: [supervisorId], references: [id])
+  supervisorId Int
+  room         Room       @relation(fields: [roomId], references: [id])
+  roomId       Int
+  active       Boolean    @default(true)
+
+  @@id([supervisorId, roomId])
+  @@map("supervisor_room")
+}
+
+model RoomQuestion {
+  room       Room     @relation(fields: [roomId], references: [id])
+  roomId     Int
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
+
+  @@id([roomId, questionId])
+  @@map("room_question")
+}
+
 model Room {
   id                Int                @id @default(autoincrement())
   name              String             @unique @db.VarChar(50)
-  supervisors       Supervisor[]
+  supervisors       SupervisorRoom[]
+  users             UserRoom[]
+  questions         RoomQuestion[]
   userRoomQuestions UserRoomQuestion[]
-  questions         Question[]
-  userRooms         UserRoom[]
   active            Boolean            @default(true)
 
   @@map("room")

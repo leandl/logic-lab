@@ -1,4 +1,4 @@
-import { GLOBAL_ROOM } from "@/config/rules";
+import { GENERAL_ROOM_NAME } from "@/config/rules";
 import {
   QuestionRepository,
   Question,
@@ -32,7 +32,7 @@ export class CreateQuestionUseCase {
     }
 
     const newQuestion = await this.questionRepo.create(input);
-    const room = await this.roomRepo.findByName(GLOBAL_ROOM);
+    const room = await this.roomRepo.findByName(GENERAL_ROOM_NAME);
 
     await this.roomRepo.addQuestions(room!.id, [newQuestion.id]);
 
