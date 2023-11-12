@@ -41,7 +41,6 @@ export default async function Home() {
             href={DYNAMIC_ROUTE.APP.EDITOR(roomQuestions.id, question.id)}
           >
             <div className="col-4">
-
               <ExerciseCard question={question} />
             </div>
           </Link>

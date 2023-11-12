@@ -26,7 +26,7 @@ export default async function PageEditor({ params }: Readonly<PageEditorProps>) 
   const isRoomIdValid = Number.isInteger(roomId);
 
   if (!userId || !isRoomIdValid || !isQuestionIdValid) {
-    redirect(ROUTE.APP.QUESTION.LIST);
+    redirect(ROUTE.APP.HOME);
   }
 
   const resultQuestion = await getCodeQuestionById(
@@ -35,7 +35,7 @@ export default async function PageEditor({ params }: Readonly<PageEditorProps>) 
     questionId
   );
   if (resultQuestion.isLeft()) {
-    redirect(ROUTE.APP.QUESTION.LIST);
+    redirect(ROUTE.APP.HOME);
   }
 
   const { question, code } = resultQuestion.value;

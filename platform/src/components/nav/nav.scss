@@ -116,4 +116,18 @@ nav {
       }
     }
   }
+
+  img.logo {
+    width: 3rem;
+
+    $primaryColor: #9389ea;
+    filter: brightness(0) saturate(100%) invert(58%) sepia(39%) saturate(2915%)
+      hue-rotate(212deg) brightness(101%) contrast(83%);
+
+    @include dark {
+      $secondaryColor: #d1eb78;
+      filter: brightness(0) saturate(100%) invert(83%) sepia(68%) saturate(314%)
+        hue-rotate(17deg) brightness(99%) contrast(88%);
+    }
+  }
 }

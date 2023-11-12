@@ -3,6 +3,8 @@ import { FormQuestion } from "../../form-question";
 import { redirect } from "next/navigation";
 import { ROUTE } from "@/config/route";
 import { getQuestionById } from "@/actions/question/get-question-by-id.action";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 type QuestionUpdateProps = {
   params: {
@@ -14,6 +16,17 @@ export const revalidate = 0;
 export const dynamic = 'force-dynamic'
 
 export default async function QuestionUpdate({ params }: QuestionUpdateProps) {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user?.id) {
+    redirect(ROUTE.APP.AUTH.LOGIN);
+  }
+
+  if (user.type !== "SUPERVISOR") {
+    redirect(ROUTE.APP.HOME);
+  }
+
   const questionId = Number(params.questionId);
   const isQuestionIdValid = Number.isInteger(questionId);
 

@@ -8,6 +8,7 @@ import { Loading } from '@/components/loading';
 import { ThemeProvider } from '@/context/ThemeContext'
 import { AuthProvider } from '@/context/AuthProvider';
 import { authOptions } from '@/lib/auth';
+import icon from "@/assets/icon.png"
 
 import '@/styles/layout.scss';
 
@@ -18,6 +19,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
+  icons: icon.src,
   title: 'Logic-Lab',
   description: 'Logic-Lab',
 }
@@ -34,6 +36,7 @@ export default async function RootLayout({
 
   return (
     <html lang="pt-BR" className={theme}>
+
       <body className={roboto.className}>
         <AuthProvider>
           <ThemeProvider theme={theme}>

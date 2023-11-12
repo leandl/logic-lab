@@ -8,12 +8,25 @@ import { DYNAMIC_ROUTE, ROUTE } from "@/config/route";
 
 import "./question-list.scss";
 import { ButtonDownloadJSONData } from "./button-download-json-data";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export const revalidate = 0;
 export const dynamic = 'force-dynamic'
 
 export default async function QuestionList() {
-  const resultQuestions = await listAllQuestions()
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
+  if (!user?.id) {
+    redirect(ROUTE.APP.AUTH.LOGIN);
+  }
+
+  if (user.type !== "SUPERVISOR") {
+    redirect(ROUTE.APP.HOME);
+  }
+
+  const resultQuestions = await listAllQuestions();
   if (resultQuestions.isLeft()) {
     redirect(ROUTE.APP.HOME);
   }

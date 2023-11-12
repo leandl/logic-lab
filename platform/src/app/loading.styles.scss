@@ -1,0 +1,8 @@
+.page-loading {
+  width: 100%;
+
+  color: $primaryColor;
+  @include dark {
+    color: $secondaryColor;
+  }
+}
