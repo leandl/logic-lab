@@ -16,15 +16,15 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
   const userId = session?.user.id;
 
-
   if (!userId) {
     redirect(ROUTE.APP.AUTH.LOGIN);
   }
 
   const resultRoomQuestions = await getListAllByUserAndRoom(
-    session.user.id,
+    userId,
     GENERAL_ROOM_ID,
   );
+
   if (resultRoomQuestions.isLeft()) {
     redirect(ROUTE.APP.QUESTION.LIST);
   }
