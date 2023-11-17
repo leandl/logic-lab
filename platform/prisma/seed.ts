@@ -9,9 +9,9 @@ import { prisma } from "@/lib/prisma";
 
 async function main() {
   const resultSupervisor = await createSupervisor({
-    email: "leandro@email.com",
-    name: "Leandro",
-    password: "123456",
+    email: process.env.SUPERVISOR_EMAIL_DEFAULT ?? "",
+    name: process.env.SUPERVISOR_NAME_DEFAULT ?? "",
+    password: process.env.SUPERVISOR_PASSWORD_DEFAULT ?? "",
   });
 
   if (resultSupervisor.isLeft()) {
