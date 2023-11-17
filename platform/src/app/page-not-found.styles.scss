@@ -1,0 +1,56 @@
+.page-error {
+  width: 100%;
+  height: calc(80vh - 60px);
+
+  color: $primaryColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include dark {
+    color: $secondaryColor;
+  }
+
+  /* Agora definimos as característica do título */
+  h1 {
+    padding-top: 100px;
+    font-size: 60px;
+    color: $primaryColor;
+  }
+
+  /* Agora definimos as característica do parágrafo. */
+  p {
+    font-size: 20px;
+    color: $primaryColor;
+    white-space: nowrap;
+    border-right: solid 3px $primaryColor;
+    overflow: hidden;
+  }
+
+  /* Animação, sua velocidade... */
+  p {
+    animation: animated-text 4s steps(25) 1s 1 normal both,
+      animated-cursor 600ms steps(25) infinite;
+  }
+
+  /* Animação do Parágrafo */
+
+  @keyframes animated-text {
+    from {
+      width: 0;
+    }
+    to {
+      width: 340px;
+    }
+  }
+
+  /* cursor animations */
+
+  @keyframes animated-cursor {
+    from {
+      border-right-color: $primaryColor;
+    }
+    to {
+      border-right-color: transparent;
+    }
+  }
+}
