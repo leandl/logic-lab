@@ -20,5 +20,13 @@ export const DYNAMIC_ROUTE = {
         ":roomId": String(roomId),
         ":questionId": String(questionId),
       }),
+    USER: {
+      DATA: {
+        SHOW: (userId: number) =>
+          rp(ROUTE.APP.USER.DATA.SHOW, {
+            ":userId": String(userId),
+          }),
+      },
+    },
   },
 };

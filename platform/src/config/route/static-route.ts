@@ -12,11 +12,11 @@ export const ROUTE = {
       UPDATE: "/question/update/:questionId",
     },
     EDITOR: "/editor/:roomId/:questionId",
+    USER: {
+      DATA: {
+        LIST: "/data-user/list",
+        SHOW: "/data-user/show/:userId"
+      }
+    }
   },
 };
-
-const routePrivateForSupervisor = [
-  ROUTE.APP.QUESTION.LIST,
-  ROUTE.APP.QUESTION.CREATE,
-  ROUTE.APP.QUESTION.UPDATE,
-];

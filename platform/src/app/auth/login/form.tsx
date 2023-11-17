@@ -24,10 +24,10 @@ export function FormLogin() {
 
 
   async function onSubmitLogin(data: FormLoginDataProps) {
-    const signInResponse = await signIn("credentials", { ...data, redirect: false })
+    const signInResponse = await signIn("credentials", { ...data, redirect: true, })
 
     if (signInResponse?.error) {
-      toast.error("User not found")
+      toast.error("Informações invalidos")
       return;
     }
 
